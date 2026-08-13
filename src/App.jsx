@@ -1,0 +1,117 @@
+import React, { useState, useEffect } from 'react';
+import { getPopularBooks } from './services/api';
+import Sidebar from './components/Sidebar';
+import HomeView from './components/HomeView';
+import CatalogView from './components/CatalogView';
+import SearchView from './components/SearchView';
+import BookModal from './components/BookModal';
+import LoginView from './components/LoginView';
+import ProfileView from './components/ProfileView';
+import './index.css';
+
+function App() {
+  const [activeTab, setActiveTab] = useState('home');
+  const [books, setBooks] = useState([]);
+  const [selectedBook, setSelectedBook] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMsg, setErrorMsg] = useState('');
+  
+  // Auth and Readlist state
+  const [user, setUser] = useState(() => {
+    const saved = localStorage.getItem('free-kindle-user');
+    return saved ? JSON.parse(saved) : null;
+  });
+  
+  const [readlist, setReadlist] = useState(() => {
+    const saved = localStorage.getItem('free-kindle-readlist');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  // Sync state to localStorage
+  useEffect(() => {
+    localStorage.setItem('free-kindle-user', JSON.stringify(user));
+  }, [user]);
+
+  useEffect(() => {
+    localStorage.setItem('free-kindle-readlist', JSON.stringify(readlist));
+  }, [readlist]);
+
+  // Readlist helper functions
+  const toggleReadlist = (book) => {
+    setReadlist(prev => {
+      if (prev.some(b => b.id === book.id)) {
+        return prev.filter(b => b.id !== book.id); // Remove
+      } else {
+        return [...prev, book]; // Add
+      }
+    });
+  };
+
+  const isInReadlist = (bookId) => {
+    return readlist.some(b => b.id === bookId);
+  };
+
+  useEffect(() => {
+    const loadInitialBooks = async () => {
+      setIsLoading(true);
+      setErrorMsg('');
+      try {
+        const popularBooks = await getPopularBooks();
+        setBooks(popularBooks);
+        if (popularBooks.length === 0) {
+          setErrorMsg('No books found. Check your internet connection.');
+        }
+      } catch (err) {
+        console.error('Failed to load initial books', err);
+        setErrorMsg('Failed to load books. Please try again later.');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    loadInitialBooks();
+  }, []);
+
+  const renderActiveView = () => {
+    switch (activeTab) {
+      case 'search':
+        return <SearchView onBookSelect={setSelectedBook} />;
+      case 'catalog':
+        return <CatalogView onBookSelect={setSelectedBook} />;
+      case 'profile':
+        return user ? (
+          <ProfileView 
+            user={user} 
+            readlist={readlist} 
+            onLogout={() => setUser(null)}
+            onBookSelect={setSelectedBook}
+          />
+        ) : (
+          <LoginView onLogin={setUser} />
+        );
+      case 'home':
+      default:
+        return <HomeView books={books} isLoading={isLoading} errorMsg={errorMsg} onBookSelect={setSelectedBook} />;
+    }
+  };
+
+  return (
+    <div className="app-layout">
+      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+      
+      <main className="main-content">
+        <div className="view-container">
+          {renderActiveView()}
+        </div>
+      </main>
+
+      <BookModal 
+        book={selectedBook} 
+        onClose={() => setSelectedBook(null)}
+        onToggleReadlist={() => selectedBook && toggleReadlist(selectedBook)}
+        isInReadlist={selectedBook ? isInReadlist(selectedBook.id) : false}
+      />
+    </div>
+  );
+}
+
+export default App;
