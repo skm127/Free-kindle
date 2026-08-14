@@ -21,7 +21,7 @@ const BookModal = ({ book, onClose, onToggleReadlist, isInReadlist, onReadBook }
         
         <div className="modal-details">
           <h2 className="modal-title">{book.title}</h2>
-          <p className="modal-author">by {book.authors.join(', ')}</p>
+          <p className="modal-author">by {book.authors ? book.authors.join(', ') : book.author || 'Unknown'}</p>
           
           <div style={{ display: 'flex', gap: '1.5rem', marginBottom: '1.5rem', color: 'var(--text-secondary)' }}>
             {book.publishedDate && (

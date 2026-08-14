@@ -30,7 +30,7 @@ const HomeView = ({ books, recommendations, isLoading, errorMsg, onBookSelect, o
           <h1 className="hero-title">{featuredBook.title}</h1>
           
           <div className="hero-meta">
-            <span>By <strong className="text-gold">{featuredBook.authors.join(', ')}</strong></span>
+            <span>By <strong className="text-gold">{featuredBook.authors ? featuredBook.authors.join(', ') : featuredBook.author || 'Unknown'}</strong></span>
             
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
               <Star size={16} className="text-gold" />

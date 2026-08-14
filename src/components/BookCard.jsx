@@ -11,7 +11,7 @@ const BookCard = ({ book, onClick }) => {
         style={{ width: '100%', height: 'auto', aspectRatio: '2/3' }}
       />
       <h4 className="mini-title" title={book.title}>{book.title}</h4>
-      <p className="mini-author" title={book.authors.join(', ')}>{book.authors[0]}</p>
+      <p className="mini-author" title={book.authors ? book.authors.join(', ') : book.author}>{book.authors ? book.authors[0] : book.author}</p>
     </div>
   );
 };
