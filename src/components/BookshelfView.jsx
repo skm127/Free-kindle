@@ -7,62 +7,70 @@ const BookshelfView = ({ user, readlist, readingProgress, onLogout, onBookSelect
   const currentlyReading = readlist.filter(book => readingProgress[book.id]);
   const savedForLater = readlist.filter(book => !readingProgress[book.id]);
 
+  const userName = user.name || user.username || user.email?.split('@')[0] || 'Reader';
+
   return (
-    <div className="bookshelf-view">
-      <div className="profile-header">
+    <div className="bookshelf-view animate-fade-in">
+      <div className="bookshelf-header">
         <div className="profile-info">
-          <div className="profile-avatar">{user.username.charAt(0).toUpperCase()}</div>
+          <div className="profile-avatar">{userName.charAt(0).toUpperCase()}</div>
           <div className="profile-details">
-            <h2>{user.username}'s Bookshelf</h2>
+            <h2 className="bookshelf-user-title">{userName}'s Bookshelf</h2>
             <p className="profile-email">{user.email}</p>
           </div>
         </div>
-        <button className="gr-button gr-button--light" onClick={onLogout}>Sign Out</button>
+        <button className="btn-secondary" onClick={onLogout}>Sign Out</button>
       </div>
 
       <div className="bookshelf-section">
-        <h3>Currently Reading</h3>
+        <h3 className="section-title">Currently Reading</h3>
         {currentlyReading.length === 0 ? (
-          <p className="empty-state">You haven't started reading any books yet.</p>
+          <div className="empty-state-box">
+            <p style={{ color: 'var(--text-secondary)' }}>You haven't started reading any books yet.</p>
+          </div>
         ) : (
-          <div className="books-grid">
+          <div className="book-grid">
             {currentlyReading.map(book => (
-              <div key={book.id} className="book-card" onClick={() => onBookSelect(book)}>
-                <div className="book-cover-container">
-                  <img src={book.coverUrl || book.cover} alt={book.title} className="book-cover" />
-                </div>
-                <div className="book-info">
-                  <h3 className="book-title">{book.title}</h3>
-                  <p className="book-author">{book.authors ? book.authors.join(', ') : book.author}</p>
-                  <button 
-                    className="gr-button" 
-                    onClick={(e) => { e.stopPropagation(); onReadBook(book); }}
-                    style={{ marginTop: '10px', width: '100%' }}
-                  >
-                    Continue Reading
-                  </button>
-                </div>
+              <div key={book.id} className="bookshelf-card" onClick={() => onBookSelect(book)}>
+                <img 
+                  src={book.coverUrl || book.cover} 
+                  alt={book.title} 
+                  className="mini-cover"
+                  onError={(e) => { e.target.onerror = null; e.target.src = 'https://via.placeholder.com/200x300/1e293b/d4af37?text=No+Cover'; }}
+                />
+                <h4 className="mini-title" title={book.title}>{book.title}</h4>
+                <p className="mini-author" title={book.authors ? book.authors.join(', ') : book.author}>{book.authors ? book.authors[0] : book.author}</p>
+                <button 
+                  className="btn-primary" 
+                  onClick={(e) => { e.stopPropagation(); onReadBook(book); }}
+                  style={{ marginTop: '0.75rem', width: '100%', padding: '0.5rem 1rem', fontSize: '0.85rem' }}
+                >
+                  Continue Reading
+                </button>
               </div>
             ))}
           </div>
         )}
       </div>
 
-      <div className="bookshelf-section" style={{ marginTop: '40px' }}>
-        <h3>Saved for Later</h3>
+      <div className="bookshelf-section" style={{ marginTop: '3rem' }}>
+        <h3 className="section-title">Saved for Later</h3>
         {savedForLater.length === 0 ? (
-          <p className="empty-state">No unread books in your shelf.</p>
+          <div className="empty-state-box">
+            <p style={{ color: 'var(--text-secondary)' }}>No saved books in your shelf.</p>
+          </div>
         ) : (
-          <div className="books-grid">
+          <div className="book-grid">
             {savedForLater.map(book => (
-              <div key={book.id} className="book-card" onClick={() => onBookSelect(book)}>
-                <div className="book-cover-container">
-                  <img src={book.coverUrl || book.cover} alt={book.title} className="book-cover" />
-                </div>
-                <div className="book-info">
-                  <h3 className="book-title">{book.title}</h3>
-                  <p className="book-author">{book.authors ? book.authors.join(', ') : book.author}</p>
-                </div>
+              <div key={book.id} className="bookshelf-card" onClick={() => onBookSelect(book)}>
+                <img 
+                  src={book.coverUrl || book.cover} 
+                  alt={book.title} 
+                  className="mini-cover"
+                  onError={(e) => { e.target.onerror = null; e.target.src = 'https://via.placeholder.com/200x300/1e293b/d4af37?text=No+Cover'; }}
+                />
+                <h4 className="mini-title" title={book.title}>{book.title}</h4>
+                <p className="mini-author" title={book.authors ? book.authors.join(', ') : book.author}>{book.authors ? book.authors[0] : book.author}</p>
               </div>
             ))}
           </div>

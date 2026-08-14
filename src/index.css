@@ -451,3 +451,144 @@ button {
   display: flex;
   gap: 1rem;
 }
+
+/* Bookshelf & Profile Styles */
+.bookshelf-view {
+  display: flex;
+  flex-direction: column;
+}
+
+.bookshelf-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 2.5rem;
+  margin-bottom: 3rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.profile-info {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.profile-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--accent-gold);
+  color: var(--accent-button-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  font-weight: bold;
+  font-family: var(--font-heading);
+}
+
+.profile-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.bookshelf-user-title {
+  font-size: 1.75rem;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.profile-email {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.empty-state-box {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+  padding: 3rem;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.bookshelf-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.bookshelf-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(230, 200, 152, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* In-App Reader Styles */
+.reader-view {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: #111;
+  display: flex;
+  flex-direction: column;
+}
+
+.reader-header {
+  height: 60px;
+  background: #1a1e24;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  z-index: 10;
+}
+
+.reader-back-btn {
+  color: var(--accent-gold);
+  font-weight: 500;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.reader-back-btn:hover {
+  color: var(--accent-gold-hover);
+}
+
+.reader-title {
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 60%;
+  text-align: center;
+}
+
+.reader-content {
+  flex: 1;
+  width: 100%;
+  height: calc(100vh - 60px);
+  position: relative;
+  background: #000;
+}
+
+.reader-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 1.5rem;
+  color: var(--text-primary);
+}
+

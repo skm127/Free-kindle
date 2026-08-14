@@ -21,15 +21,22 @@ const fetchWithTimeout = async (url, options = {}) => {
   }
 };
 
-const formatDriveBook = (book) => ({
-  id: book.id,
-  title: book.title,
-  author: book.author,
-  cover: book.cover_url,
-  description: "A premium book from Catsby's E-Library.",
-  source: 'Google Drive',
-  download_url: book.download_url
-});
+const formatDriveBook = (book) => {
+  const authorName = book.author || 'Unknown Author';
+  const cover = book.cover_url || 'https://via.placeholder.com/300x450/1e293b/d4af37?text=No+Cover';
+  return {
+    id: book.id,
+    title: book.title || 'Untitled',
+    author: authorName,
+    authors: [authorName],
+    cover: cover,
+    coverUrl: cover,
+    description: "A premium book from Catsby's E-Library.",
+    source: 'Google Drive',
+    download_url: book.download_url,
+    categories: ['Fiction', 'E-Books']
+  };
+};
 
 export const searchBooks = async (query, maxResults = 24) => {
   try {
