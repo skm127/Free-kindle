@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Home, LayoutGrid, User, Settings, Library } from 'lucide-react';
+import { Search, Home, LayoutGrid, User, Library } from 'lucide-react';
 
 const Sidebar = ({ activeTab, setActiveTab }) => {
   return (
@@ -40,12 +40,6 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
           title="My Bookshelf"
         >
           <User size={24} />
-        </button>
-      </div>
-
-      <div style={{ marginTop: 'auto' }}>
-        <button className="nav-item" aria-label="Settings">
-          <Settings size={24} />
         </button>
       </div>
     </div>

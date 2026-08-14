@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getPopularBooks } from './services/api';
+import { getPopularBooks, getRecommendations } from './services/api';
 import Sidebar from './components/Sidebar';
 import HomeView from './components/HomeView';
 import CatalogView from './components/CatalogView';
@@ -8,8 +8,18 @@ import BookModal from './components/BookModal';
 import LoginView from './components/LoginView';
 import BookshelfView from './components/BookshelfView';
 import ReaderView from './components/ReaderView';
-import { getRecommendations } from './services/api';
 import './index.css';
+
+const safeParse = (key, fallback) => {
+  try {
+    const saved = localStorage.getItem(key);
+    return saved ? JSON.parse(saved) : fallback;
+  } catch (e) {
+    console.warn(`Corrupted localStorage key "${key}", resetting.`);
+    localStorage.removeItem(key);
+    return fallback;
+  }
+};
 
 function App() {
   const [activeTab, setActiveTab] = useState('home');
@@ -19,20 +29,9 @@ function App() {
   const [errorMsg, setErrorMsg] = useState('');
   
   // Auth and Readlist state
-  const [user, setUser] = useState(() => {
-    const saved = localStorage.getItem('free-kindle-user');
-    return saved ? JSON.parse(saved) : null;
-  });
-  
-  const [readlist, setReadlist] = useState(() => {
-    const saved = localStorage.getItem('free-kindle-readlist');
-    return saved ? JSON.parse(saved) : [];
-  });
-  
-  const [readingProgress, setReadingProgress] = useState(() => {
-    const saved = localStorage.getItem('free-kindle-progress');
-    return saved ? JSON.parse(saved) : {};
-  });
+  const [user, setUser] = useState(() => safeParse('free-kindle-user', null));
+  const [readlist, setReadlist] = useState(() => safeParse('free-kindle-readlist', []));
+  const [readingProgress, setReadingProgress] = useState(() => safeParse('free-kindle-progress', {}));
 
   const [recommendations, setRecommendations] = useState([]);
   const [isReading, setIsReading] = useState(false);
@@ -52,11 +51,15 @@ function App() {
 
   // Fetch recommendations when readlist changes
   useEffect(() => {
+    let cancelled = false;
     if (readlist.length > 0) {
-      getRecommendations(readlist).then(setRecommendations);
+      getRecommendations(readlist).then(data => {
+        if (!cancelled) setRecommendations(data);
+      });
     } else {
       setRecommendations([]);
     }
+    return () => { cancelled = true; };
   }, [readlist]);
 
   // Readlist helper functions
@@ -113,7 +116,7 @@ function App() {
           book={selectedBook} 
           location={readingProgress[selectedBook.id]}
           onLocationChanged={updateProgress}
-          onClose={() => setIsReading(false)}
+          onClose={() => { setIsReading(false); setSelectedBook(null); }}
         />
       );
     }

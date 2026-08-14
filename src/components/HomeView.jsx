@@ -45,21 +45,26 @@ const HomeView = ({ books, recommendations, isLoading, errorMsg, onBookSelect, o
             )}
           </div>
           
-          <p className="hero-desc" dangerouslySetInnerHTML={{ 
-            __html: featuredBook.description?.substring(0, 250) + (featuredBook.description?.length > 250 ? '...' : '') || 'No description available.'
-          }} />
+          <p className="hero-desc">{featuredBook.description ? (featuredBook.description.length > 250 ? featuredBook.description.substring(0, 250) + '...' : featuredBook.description) : 'No description available.'}</p>
           
           <div className="hero-actions">
-            <button 
-              className="btn-primary"
-              onClick={() => {
-                onBookSelect(featuredBook);
-                onReadBook && onReadBook(featuredBook);
-              }}
-            >
-              <Play size={18} fill="currentColor" />
-              <span>READ NOW</span>
-            </button>
+            {featuredBook.webReaderLink || featuredBook.download_url ? (
+              <button 
+                className="btn-primary"
+                onClick={() => {
+                  onBookSelect(featuredBook);
+                  if (onReadBook) onReadBook(featuredBook);
+                }}
+              >
+                <Play size={18} fill="currentColor" />
+                <span>READ NOW</span>
+              </button>
+            ) : (
+              <button className="btn-primary" onClick={() => onBookSelect(featuredBook)}>
+                <Heart size={18} />
+                <span>MORE INFO</span>
+              </button>
+            )}
             
             <button className="btn-secondary" onClick={() => onBookSelect(featuredBook)}>
               <Heart size={18} />

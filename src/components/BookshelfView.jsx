@@ -4,8 +4,8 @@ const BookshelfView = ({ user, readlist, readingProgress, onLogout, onBookSelect
   if (!user) return null;
 
   // Split readlist into 'Currently Reading' and 'Saved for Later'
-  const currentlyReading = readlist.filter(book => readingProgress[book.id]);
-  const savedForLater = readlist.filter(book => !readingProgress[book.id]);
+  const currentlyReading = readlist.filter(book => Object.prototype.hasOwnProperty.call(readingProgress, book.id));
+  const savedForLater = readlist.filter(book => !Object.prototype.hasOwnProperty.call(readingProgress, book.id));
 
   const userName = user.name || user.username || user.email?.split('@')[0] || 'Reader';
 

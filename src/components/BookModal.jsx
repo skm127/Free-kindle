@@ -38,7 +38,7 @@ const BookModal = ({ book, onClose, onToggleReadlist, isInReadlist, onReadBook }
             )}
           </div>
           
-          <div className="modal-desc" dangerouslySetInnerHTML={{ __html: book.description }} />
+          <div className="modal-desc">{book.description}</div>
           
           <div className="modal-actions">
             {book.webReaderLink || book.download_url ? (

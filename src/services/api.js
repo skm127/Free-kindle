@@ -1,11 +1,5 @@
 import driveBooksData from '../data/drive_books.json';
 
-const RAPIDAPI_KEY = '958d96c7c6msh73256e753eb7112p1918dejsnc40ae1638d79';
-const RAPIDAPI_HOST = 'project-gutenberg-free-books-api1.p.rapidapi.com';
-const gutenbergHeaders = {
-  'X-RapidAPI-Key': RAPIDAPI_KEY,
-  'X-RapidAPI-Host': RAPIDAPI_HOST
-};
 
 const fetchWithTimeout = async (url, options = {}) => {
   const { timeout = 10000 } = options;
@@ -68,7 +62,7 @@ export const getPopularBooks = async () => {
         .then(res => res.json())
         .then(data => data.docs ? data.docs.map(formatOpenLibraryBook) : [])
         .catch(err => { console.error('OL Error', err); return []; }),
-      fetchWithTimeout(`https://${RAPIDAPI_HOST}/books/?topic=fiction`, { headers: gutenbergHeaders })
+      fetchWithTimeout('https://gutendex.com/books/?topic=fiction')
         .then(res => res.json())
         .then(data => data.results ? data.results.map(formatGutenbergBook) : [])
         .catch(err => { console.error('Gutenberg Error', err); return []; })
@@ -89,7 +83,7 @@ export const getBooksByCategory = async (category) => {
         .then(res => res.json())
         .then(data => data.docs ? data.docs.map(formatOpenLibraryBook) : [])
         .catch(err => { console.error('OL Error', err); return []; }),
-      fetchWithTimeout(`https://${RAPIDAPI_HOST}/books/?topic=${encodeURIComponent(category)}`, { headers: gutenbergHeaders })
+      fetchWithTimeout(`https://gutendex.com/books/?topic=${encodeURIComponent(category)}`)
         .then(res => res.json())
         .then(data => data.results ? data.results.map(formatGutenbergBook) : [])
         .catch(err => { console.error('Gutenberg Error', err); return []; })
@@ -137,7 +131,7 @@ const fetchOpenLibrarySearch = async (query, limit) => {
 };
 
 const fetchGutenbergSearch = async (query) => {
-  const response = await fetchWithTimeout(`https://${RAPIDAPI_HOST}/books/?search=${encodeURIComponent(query)}`, { headers: gutenbergHeaders });
+  const response = await fetchWithTimeout(`https://gutendex.com/books/?search=${encodeURIComponent(query)}`);
   if (!response.ok) return [];
   const data = await response.json();
   return data.results ? data.results.map(formatGutenbergBook) : [];

@@ -57,7 +57,7 @@ const ReaderView = ({ book, location, onLocationChanged, onClose }) => {
         ) : (
           <div className="reader-error">
             <h3>Sorry, this book cannot be read in the browser.</h3>
-            <a href={book.download_url || book.webReaderLink} target="_blank" rel="noreferrer" className="gr-button">
+            <a href={book.download_url || book.webReaderLink || book.previewLink || '#'} target="_blank" rel="noreferrer" className="gr-button">
               Download or Read Externally
             </a>
           </div>

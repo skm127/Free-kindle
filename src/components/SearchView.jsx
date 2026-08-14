@@ -20,7 +20,7 @@ const SearchView = ({ onBookSelect }) => {
       if (books.length === 0) {
         setError('No books found for this search.');
       }
-    } catch (err) {
+    } catch (_err) {
       setError('An error occurred during search.');
     } finally {
       setLoading(false);
