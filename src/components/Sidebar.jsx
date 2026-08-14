@@ -36,7 +36,8 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
         <button 
           className={`nav-item ${activeTab === 'profile' ? 'active' : ''}`}
           onClick={() => setActiveTab('profile')}
-          aria-label="Profile"
+          aria-label="My Bookshelf"
+          title="My Bookshelf"
         >
           <User size={24} />
         </button>

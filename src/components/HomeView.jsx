@@ -69,32 +69,55 @@ const HomeView = ({ books, recommendations, isLoading, errorMsg, onBookSelect, o
         </div>
         
         <div className="hero-cover-container" onClick={() => onBookSelect(featuredBook)}>
-          <img src={featuredBook.coverUrl} alt={featuredBook.title} className="hero-cover" />
+          <img 
+            src={featuredBook.coverUrl} 
+            alt={featuredBook.title} 
+            className="hero-cover" 
+            onError={(e) => { e.target.onerror = null; e.target.src = 'https://via.placeholder.com/400x600/1e293b/d4af37?text=No+Cover'; }}
+          />
         </div>
       </div>
 
-      {recommendations && recommendations.length > 0 && (
-        <div style={{ marginTop: '2rem' }}>
-          <h3 className="section-title">✨ Recommended for You</h3>
-          <p style={{ color: 'var(--text-secondary)', marginBottom: '1rem', fontSize: '0.9rem' }}>Based on your reading habits</p>
-          <div className="book-scroll-container">
-            {recommendations.map(book => (
-              <div key={book.id} className="mini-book-card" onClick={() => onBookSelect(book)}>
-                <img src={book.coverUrl || book.cover} alt={book.title} className="mini-cover" loading="lazy" />
-                <h4 className="mini-title" title={book.title}>{book.title}</h4>
-                <p className="mini-author" title={book.authors ? book.authors.join(', ') : book.author}>{book.authors ? book.authors[0] : book.author}</p>
-              </div>
-            ))}
+      <div style={{ marginTop: '2rem' }}>
+        <h3 className="section-title">✨ Recommended for You</h3>
+        {(!recommendations || recommendations.length === 0) ? (
+          <div style={{ padding: '1.5rem', background: 'rgba(30, 41, 59, 0.5)', borderRadius: '8px', border: '1px solid var(--border)' }}>
+            <p style={{ color: 'var(--text-secondary)' }}>Save books to your Readlist to unlock personalized recommendations based on your reading habits!</p>
           </div>
-        </div>
-      )}
+        ) : (
+          <>
+            <p style={{ color: 'var(--text-secondary)', marginBottom: '1rem', fontSize: '0.9rem' }}>Based on your reading habits</p>
+            <div className="book-scroll-container">
+              {recommendations.map(book => (
+                <div key={book.id} className="mini-book-card" onClick={() => onBookSelect(book)}>
+                  <img 
+                    src={book.coverUrl || book.cover} 
+                    alt={book.title} 
+                    className="mini-cover" 
+                    loading="lazy" 
+                    onError={(e) => { e.target.onerror = null; e.target.src = 'https://via.placeholder.com/200x300/1e293b/d4af37?text=No+Cover'; }}
+                  />
+                  <h4 className="mini-title" title={book.title}>{book.title}</h4>
+                  <p className="mini-author" title={book.authors ? book.authors.join(', ') : book.author}>{book.authors ? book.authors[0] : book.author}</p>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
       
       <div style={{ marginTop: '2rem' }}>
         <h3 className="section-title">More Similar Books</h3>
         <div className="book-scroll-container">
           {popularBooks.map(book => (
             <div key={book.id} className="mini-book-card" onClick={() => onBookSelect(book)}>
-              <img src={book.coverUrl || book.cover} alt={book.title} className="mini-cover" loading="lazy" />
+              <img 
+                src={book.coverUrl || book.cover} 
+                alt={book.title} 
+                className="mini-cover" 
+                loading="lazy" 
+                onError={(e) => { e.target.onerror = null; e.target.src = 'https://via.placeholder.com/200x300/1e293b/d4af37?text=No+Cover'; }}
+              />
               <h4 className="mini-title" title={book.title}>{book.title}</h4>
               <p className="mini-author" title={book.authors ? book.authors.join(', ') : book.author}>{book.authors ? book.authors[0] : book.author}</p>
             </div>
