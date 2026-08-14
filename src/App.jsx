@@ -6,7 +6,9 @@ import CatalogView from './components/CatalogView';
 import SearchView from './components/SearchView';
 import BookModal from './components/BookModal';
 import LoginView from './components/LoginView';
-import ProfileView from './components/ProfileView';
+import BookshelfView from './components/BookshelfView';
+import ReaderView from './components/ReaderView';
+import { getRecommendations } from './services/api';
 import './index.css';
 
 function App() {
@@ -26,6 +28,14 @@ function App() {
     const saved = localStorage.getItem('free-kindle-readlist');
     return saved ? JSON.parse(saved) : [];
   });
+  
+  const [readingProgress, setReadingProgress] = useState(() => {
+    const saved = localStorage.getItem('free-kindle-progress');
+    return saved ? JSON.parse(saved) : {};
+  });
+
+  const [recommendations, setRecommendations] = useState([]);
+  const [isReading, setIsReading] = useState(false);
 
   // Sync state to localStorage
   useEffect(() => {
@@ -34,6 +44,19 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem('free-kindle-readlist', JSON.stringify(readlist));
+  }, [readlist]);
+
+  useEffect(() => {
+    localStorage.setItem('free-kindle-progress', JSON.stringify(readingProgress));
+  }, [readingProgress]);
+
+  // Fetch recommendations when readlist changes
+  useEffect(() => {
+    if (readlist.length > 0) {
+      getRecommendations(readlist).then(setRecommendations);
+    } else {
+      setRecommendations([]);
+    }
   }, [readlist]);
 
   // Readlist helper functions
@@ -49,6 +72,18 @@ function App() {
 
   const isInReadlist = (bookId) => {
     return readlist.some(b => b.id === bookId);
+  };
+
+  const updateProgress = (bookId, location) => {
+    setReadingProgress(prev => ({
+      ...prev,
+      [bookId]: location
+    }));
+  };
+
+  const handleReadBook = (book) => {
+    setSelectedBook(book);
+    setIsReading(true);
   };
 
   useEffect(() => {
@@ -72,6 +107,17 @@ function App() {
   }, []);
 
   const renderActiveView = () => {
+    if (isReading && selectedBook) {
+      return (
+        <ReaderView 
+          book={selectedBook} 
+          location={readingProgress[selectedBook.id]}
+          onLocationChanged={updateProgress}
+          onClose={() => setIsReading(false)}
+        />
+      );
+    }
+
     switch (activeTab) {
       case 'search':
         return <SearchView onBookSelect={setSelectedBook} />;
@@ -79,18 +125,20 @@ function App() {
         return <CatalogView onBookSelect={setSelectedBook} />;
       case 'profile':
         return user ? (
-          <ProfileView 
+          <BookshelfView 
             user={user} 
             readlist={readlist} 
+            readingProgress={readingProgress}
             onLogout={() => setUser(null)}
             onBookSelect={setSelectedBook}
+            onReadBook={handleReadBook}
           />
         ) : (
           <LoginView onLogin={setUser} />
         );
       case 'home':
       default:
-        return <HomeView books={books} isLoading={isLoading} errorMsg={errorMsg} onBookSelect={setSelectedBook} />;
+        return <HomeView books={books} recommendations={recommendations} isLoading={isLoading} errorMsg={errorMsg} onBookSelect={setSelectedBook} onReadBook={handleReadBook} />;
     }
   };
 
@@ -105,10 +153,11 @@ function App() {
       </main>
 
       <BookModal 
-        book={selectedBook} 
+        book={isReading ? null : selectedBook} 
         onClose={() => setSelectedBook(null)}
         onToggleReadlist={() => selectedBook && toggleReadlist(selectedBook)}
         isInReadlist={selectedBook ? isInReadlist(selectedBook.id) : false}
+        onReadBook={() => selectedBook && handleReadBook(selectedBook)}
       />
     </div>
   );

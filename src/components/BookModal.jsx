@@ -1,7 +1,7 @@
 import React from 'react';
 import { X, BookOpen, ExternalLink, Calendar, Book, Heart } from 'lucide-react';
 
-const BookModal = ({ book, onClose, onToggleReadlist, isInReadlist }) => {
+const BookModal = ({ book, onClose, onToggleReadlist, isInReadlist, onReadBook }) => {
   if (!book) return null;
 
   return (
@@ -41,11 +41,11 @@ const BookModal = ({ book, onClose, onToggleReadlist, isInReadlist }) => {
           <div className="modal-desc" dangerouslySetInnerHTML={{ __html: book.description }} />
           
           <div className="modal-actions">
-            {book.webReaderLink ? (
-              <a href={book.webReaderLink} target="_blank" rel="noopener noreferrer" className="btn-primary">
+            {book.webReaderLink || book.download_url ? (
+              <button onClick={onReadBook} className="btn-primary">
                 <BookOpen size={20} fill="currentColor" />
                 READ NOW
-              </a>
+              </button>
             ) : (
               <a href={book.previewLink} target="_blank" rel="noopener noreferrer" className="btn-primary">
                 <ExternalLink size={20} />

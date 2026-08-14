@@ -1,3 +1,5 @@
+import driveBooksData from '../data/drive_books.json';
+
 const RAPIDAPI_KEY = '958d96c7c6msh73256e753eb7112p1918dejsnc40ae1638d79';
 const RAPIDAPI_HOST = 'project-gutenberg-free-books-api1.p.rapidapi.com';
 const gutenbergHeaders = {
@@ -19,6 +21,16 @@ const fetchWithTimeout = async (url, options = {}) => {
   }
 };
 
+const formatDriveBook = (book) => ({
+  id: book.id,
+  title: book.title,
+  author: book.author,
+  cover: book.cover_url,
+  description: "A premium book from Catsby's E-Library.",
+  source: 'Google Drive',
+  download_url: book.download_url
+});
+
 export const searchBooks = async (query, maxResults = 24) => {
   try {
     const [openLibraryDocs, gutenbergBooks] = await Promise.all([
@@ -28,8 +40,14 @@ export const searchBooks = async (query, maxResults = 24) => {
         .catch(err => { console.error('Gutenberg Error', err); return []; })
     ]);
     
+    // Filter local drive books matching query
+    const lowerQuery = query.toLowerCase();
+    const driveBooks = driveBooksData
+      .filter(b => b.title.toLowerCase().includes(lowerQuery) || b.author.toLowerCase().includes(lowerQuery))
+      .map(formatDriveBook);
+    
     // Interleave the results
-    return interleaveArrays(gutenbergBooks, openLibraryDocs).slice(0, maxResults);
+    return interleaveArrays(driveBooks, interleaveArrays(gutenbergBooks, openLibraryDocs)).slice(0, maxResults);
   } catch (error) {
     console.error('Error searching books:', error);
     return [];
@@ -49,7 +67,8 @@ export const getPopularBooks = async () => {
         .catch(err => { console.error('Gutenberg Error', err); return []; })
     ]);
 
-    return interleaveArrays(gutenbergBooks, openLibraryDocs);
+    const driveBooks = driveBooksData.map(formatDriveBook);
+    return interleaveArrays(driveBooks, interleaveArrays(gutenbergBooks, openLibraryDocs));
   } catch (error) {
     console.error('Error fetching popular books:', error);
     return [];
@@ -69,9 +88,36 @@ export const getBooksByCategory = async (category) => {
         .catch(err => { console.error('Gutenberg Error', err); return []; })
     ]);
 
-    return interleaveArrays(gutenbergBooks, openLibraryDocs);
+    // For categories, just pass some drive books randomly or all
+    const driveBooks = driveBooksData.map(formatDriveBook);
+    return interleaveArrays(driveBooks, interleaveArrays(gutenbergBooks, openLibraryDocs));
   } catch (error) {
     console.error('Error fetching category books:', error);
+    return [];
+  }
+};
+
+export const getRecommendations = async (readlist) => {
+  if (!readlist || readlist.length === 0) return [];
+  try {
+    // Extract common categories/subjects from readlist
+    const allCategories = readlist.flatMap(book => book.categories || []);
+    const categoryCounts = allCategories.reduce((acc, cat) => {
+      acc[cat] = (acc[cat] || 0) + 1;
+      return acc;
+    }, {});
+    
+    // Sort categories by frequency and pick the top one
+    const topCategory = Object.keys(categoryCounts).sort((a, b) => categoryCounts[b] - categoryCounts[a])[0];
+    
+    if (topCategory) {
+      return await getBooksByCategory(topCategory);
+    }
+    
+    // Fallback if no categories
+    return await getPopularBooks();
+  } catch (error) {
+    console.error('Error fetching recommendations:', error);
     return [];
   }
 };

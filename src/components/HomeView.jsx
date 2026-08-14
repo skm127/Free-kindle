@@ -1,7 +1,7 @@
 import React from 'react';
 import { Play, Heart, Star, Clock } from 'lucide-react';
 
-const HomeView = ({ books, isLoading, errorMsg, onBookSelect }) => {
+const HomeView = ({ books, recommendations, isLoading, errorMsg, onBookSelect, onReadBook }) => {
   if (isLoading) {
     return (
       <div className="loader-container">
@@ -52,15 +52,18 @@ const HomeView = ({ books, isLoading, errorMsg, onBookSelect }) => {
           <div className="hero-actions">
             <button 
               className="btn-primary"
-              onClick={() => onBookSelect(featuredBook)}
+              onClick={() => {
+                onBookSelect(featuredBook);
+                onReadBook && onReadBook(featuredBook);
+              }}
             >
               <Play size={18} fill="currentColor" />
               <span>READ NOW</span>
             </button>
             
-            <button className="btn-secondary">
+            <button className="btn-secondary" onClick={() => onBookSelect(featuredBook)}>
               <Heart size={18} />
-              <span>ADD TO WISH LIST</span>
+              <span>MORE INFO</span>
             </button>
           </div>
         </div>
@@ -69,15 +72,31 @@ const HomeView = ({ books, isLoading, errorMsg, onBookSelect }) => {
           <img src={featuredBook.coverUrl} alt={featuredBook.title} className="hero-cover" />
         </div>
       </div>
+
+      {recommendations && recommendations.length > 0 && (
+        <div style={{ marginTop: '2rem' }}>
+          <h3 className="section-title">✨ Recommended for You</h3>
+          <p style={{ color: 'var(--text-secondary)', marginBottom: '1rem', fontSize: '0.9rem' }}>Based on your reading habits</p>
+          <div className="book-scroll-container">
+            {recommendations.map(book => (
+              <div key={book.id} className="mini-book-card" onClick={() => onBookSelect(book)}>
+                <img src={book.coverUrl || book.cover} alt={book.title} className="mini-cover" loading="lazy" />
+                <h4 className="mini-title" title={book.title}>{book.title}</h4>
+                <p className="mini-author" title={book.authors ? book.authors.join(', ') : book.author}>{book.authors ? book.authors[0] : book.author}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
       
-      <div>
+      <div style={{ marginTop: '2rem' }}>
         <h3 className="section-title">More Similar Books</h3>
         <div className="book-scroll-container">
           {popularBooks.map(book => (
             <div key={book.id} className="mini-book-card" onClick={() => onBookSelect(book)}>
-              <img src={book.coverUrl} alt={book.title} className="mini-cover" loading="lazy" />
+              <img src={book.coverUrl || book.cover} alt={book.title} className="mini-cover" loading="lazy" />
               <h4 className="mini-title" title={book.title}>{book.title}</h4>
-              <p className="mini-author" title={book.authors.join(', ')}>{book.authors[0]}</p>
+              <p className="mini-author" title={book.authors ? book.authors.join(', ') : book.author}>{book.authors ? book.authors[0] : book.author}</p>
             </div>
           ))}
         </div>
