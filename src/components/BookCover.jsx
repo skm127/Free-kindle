@@ -1,11 +1,24 @@
 import React, { useState, useEffect } from 'react';
 
 const coverCache = {};
+const GOOGLE_API_KEY = 'AIzaSyBIkyBzdVY-wgYlXbFQS03uhHUYxT-SCNQ';
+
+const cleanBookTitle = (title) => {
+  if (!title) return '';
+  return title
+    .replace(/\.(epub|pdf|azw3|mobi|cbz|cbr|txt)$/i, '')
+    .replace(/_/g, ' ')
+    .replace(/^(?:.*?\s+)?(?:Book|Vol(?:ume)?|Series|#)\s*[\d\.]+\s*(?:[:\-_–]\s*|\s+)/i, '')
+    .replace(/^\d+\s*[\.\-_–]\s*/, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+};
 
 const BookCover = ({ title, author, coverUrl, className, style, onClick, alt }) => {
   const [imgSrc, setImgSrc] = useState(null);
   const [hasError, setHasError] = useState(false);
-  const cacheKey = `cover_${(title || '').toLowerCase().trim()}_${(author || '').toLowerCase().trim()}`;
+  const cleanTitle = cleanBookTitle(title);
+  const cacheKey = `cover_${cleanTitle.toLowerCase()}_${(author || '').toLowerCase().trim()}`;
 
   useEffect(() => {
     setHasError(false);
@@ -16,7 +29,7 @@ const BookCover = ({ title, author, coverUrl, className, style, onClick, alt }) 
       return;
     }
 
-    if (!title) {
+    if (!cleanTitle) {
       setHasError(true);
       return;
     }
@@ -39,14 +52,14 @@ const BookCover = ({ title, author, coverUrl, className, style, onClick, alt }) 
         setHasError(true);
         return;
       }
-    } catch (_e) { /* ignore localStorage quota */ }
+    } catch (_e) { /* ignore quota */ }
 
-    // 4. Fetch real cover from Google Books API
+    // 4. Try Google Books API with API Key (highest quality match)
     let isMounted = true;
     const authorClean = author && author !== 'Unknown Author' ? author : '';
-    const q = `intitle:${encodeURIComponent(title)}${authorClean ? `+inauthor:${encodeURIComponent(authorClean)}` : ''}`;
+    const q = `intitle:${encodeURIComponent(cleanTitle)}${authorClean ? `+inauthor:${encodeURIComponent(authorClean)}` : ''}`;
     
-    fetch(`https://www.googleapis.com/books/v1/volumes?q=${q}&maxResults=1&fields=items(volumeInfo/imageLinks)`)
+    fetch(`https://www.googleapis.com/books/v1/volumes?q=${q}&maxResults=1&key=${GOOGLE_API_KEY}&fields=items(volumeInfo/imageLinks)`)
       .then(res => res.json())
       .then(data => {
         if (!isMounted) return;
@@ -58,24 +71,27 @@ const BookCover = ({ title, author, coverUrl, className, style, onClick, alt }) 
           try { localStorage.setItem(cacheKey, highRes); } catch (_e) {}
           setImgSrc(highRes);
         } else {
-          coverCache[cacheKey] = null;
-          try { localStorage.setItem(cacheKey, 'none'); } catch (_e) {}
-          setHasError(true);
+          // 5. Fallback to Open Library Title cover
+          const olUrl = `https://covers.openlibrary.org/b/title/${encodeURIComponent(cleanTitle)}-M.jpg`;
+          setImgSrc(olUrl);
         }
       })
       .catch(() => {
-        if (isMounted) setHasError(true);
+        if (isMounted) {
+          const olUrl = `https://covers.openlibrary.org/b/title/${encodeURIComponent(cleanTitle)}-M.jpg`;
+          setImgSrc(olUrl);
+        }
       });
 
     return () => { isMounted = false; };
-  }, [title, author, coverUrl, cacheKey]);
+  }, [title, author, coverUrl, cacheKey, cleanTitle]);
 
   const handleImageError = () => {
-    // If explicit coverUrl failed, try Google Books API
-    if (imgSrc === coverUrl && title) {
+    // If current source failed and wasn't already Google Books, try Google Books
+    if (imgSrc && !imgSrc.includes('google.com') && cleanTitle) {
       const authorClean = author && author !== 'Unknown Author' ? author : '';
-      const q = `intitle:${encodeURIComponent(title)}${authorClean ? `+inauthor:${encodeURIComponent(authorClean)}` : ''}`;
-      fetch(`https://www.googleapis.com/books/v1/volumes?q=${q}&maxResults=1&fields=items(volumeInfo/imageLinks)`)
+      const q = `intitle:${encodeURIComponent(cleanTitle)}${authorClean ? `+inauthor:${encodeURIComponent(authorClean)}` : ''}`;
+      fetch(`https://www.googleapis.com/books/v1/volumes?q=${q}&maxResults=1&key=${GOOGLE_API_KEY}&fields=items(volumeInfo/imageLinks)`)
         .then(res => res.json())
         .then(data => {
           const img = data.items?.[0]?.volumeInfo?.imageLinks;
@@ -94,7 +110,6 @@ const BookCover = ({ title, author, coverUrl, className, style, onClick, alt }) 
   };
 
   if (hasError || !imgSrc) {
-    // Elegant fallback card with rich dark palette and gold/light typography
     const palettes = [
       ['#1e293b', '#e2e8f0', '#d4af37'],
       ['#1e1b4b', '#e0e7ff', '#a5b4fc'],
@@ -103,7 +118,7 @@ const BookCover = ({ title, author, coverUrl, className, style, onClick, alt }) 
       ['#241f17', '#fef3c7', '#fcd34d'],
       ['#182329', '#e0f2fe', '#7dd3fc'],
     ];
-    const hash = (title || 'Book').split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    const hash = (cleanTitle || 'Book').split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
     const [bg, fg, accent] = palettes[hash % palettes.length];
 
     return (
@@ -157,7 +172,7 @@ const BookCover = ({ title, author, coverUrl, className, style, onClick, alt }) 
             WebkitBoxOrient: 'vertical',
             wordBreak: 'break-word'
           }}>
-            {title || 'Untitled Book'}
+            {cleanTitle || 'Untitled Book'}
           </h4>
           {author && author !== 'Unknown Author' && (
             <p style={{
@@ -191,7 +206,7 @@ const BookCover = ({ title, author, coverUrl, className, style, onClick, alt }) 
   return (
     <img
       src={imgSrc}
-      alt={alt || title || 'Book cover'}
+      alt={alt || cleanTitle || 'Book cover'}
       className={className}
       style={style}
       onClick={onClick}
