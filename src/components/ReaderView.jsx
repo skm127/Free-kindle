@@ -1,53 +1,91 @@
 import React, { useState, useEffect } from 'react';
 import { ReactReader } from 'react-reader';
-import { ArrowLeft, Download, ExternalLink, AlertCircle, Loader2, BookOpen } from 'lucide-react';
+import { ArrowLeft, Download, ExternalLink, Loader2, RotateCcw, BookOpen } from 'lucide-react';
 
 const ReaderView = ({ book, location, onLocationChanged, onClose }) => {
   const [localLocation, setLocalLocation] = useState(location || 0);
   const [epubData, setEpubData] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [errorMsg, setErrorMsg] = useState(null);
+  const [loadError, setLoadError] = useState(false);
 
   const handleLocationChanged = (loc) => {
     setLocalLocation(loc);
     onLocationChanged(book.id, loc);
   };
 
-  const isGutenbergEpub = book.source === 'Project Gutenberg' && book.webReaderLink && book.webReaderLink.includes('.epub');
-  const isGoogleDrive = book.source === 'Google Drive';
-  const isInternetArchive = book.source === 'Internet Archive';
-  const isDirectEpub = book.webReaderLink && book.webReaderLink.endsWith('.epub');
+  const rawUrl = book.webReaderLink || book.download_url || book.previewLink || '';
+  const urlLower = rawUrl.toLowerCase();
 
-  // Load EPUB into ArrayBuffer for Google Drive or EPUB links
+  // Detect format
+  const isEpub = urlLower.includes('.epub') || (book.source === 'Google Drive' && !urlLower.includes('.pdf'));
+  const isPdf = urlLower.includes('.pdf');
+  const isInternetArchive = book.source === 'Internet Archive' || rawUrl.includes('archive.org');
+
+  // For EPUBs, fetch ArrayBuffer into memory for instant in-browser reading
   useEffect(() => {
     let isMounted = true;
-    if (isGoogleDrive && book.download_url) {
+    if (isEpub && rawUrl && !isInternetArchive) {
       setLoading(true);
-      setErrorMsg(null);
-      fetch(book.download_url)
-        .then(res => {
+      setLoadError(false);
+
+      const fetchEpub = async () => {
+        try {
+          // 1. Try direct fetch
+          let res = await fetch(rawUrl);
           if (!res.ok) throw new Error(`HTTP ${res.status}`);
-          return res.arrayBuffer();
-        })
-        .then(buffer => {
+          let buffer = await res.arrayBuffer();
           if (isMounted) {
             setEpubData(buffer);
             setLoading(false);
           }
-        })
-        .catch(err => {
-          console.error('Failed to load drive EPUB into memory:', err);
-          if (isMounted) {
-            // Fallback: will try iframe viewer
-            setLoading(false);
+        } catch (err) {
+          console.warn('Direct EPUB fetch failed, trying CORS gateway...', err);
+          try {
+            // 2. Fallback to high-speed CORS proxy
+            const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(rawUrl)}`;
+            let res = await fetch(proxyUrl);
+            if (!res.ok) throw new Error(`Proxy HTTP ${res.status}`);
+            let buffer = await res.arrayBuffer();
+            if (isMounted) {
+              setEpubData(buffer);
+              setLoading(false);
+            }
+          } catch (proxyErr) {
+            console.error('All EPUB fetches failed:', proxyErr);
+            if (isMounted) {
+              setLoading(false);
+              setLoadError(true);
+            }
           }
-        });
+        }
+      };
+
+      fetchEpub();
+    } else {
+      setLoading(false);
     }
 
     return () => { isMounted = false; };
-  }, [book, isGoogleDrive]);
+  }, [rawUrl, isEpub, isInternetArchive]);
 
-  const downloadUrl = book.download_url || book.webReaderLink || book.previewLink;
+  // Determine iframe reader URL for PDFs and Web viewers
+  let iframeViewerUrl = null;
+  if (isInternetArchive) {
+    const idMatch = rawUrl.match(/archive\.org\/(?:details|embed)\/([a-zA-Z0-9_\-\.]+)/i);
+    const iaId = idMatch ? idMatch[1] : (book.id ? book.id.replace('ia_', '') : '');
+    iframeViewerUrl = `https://archive.org/embed/${iaId}`;
+  } else if (book.source === 'Google Drive') {
+    const idMatch = rawUrl.match(/id=([a-zA-Z0-9_-]+)/) || rawUrl.match(/\/d\/([a-zA-Z0-9_-]+)/);
+    if (idMatch) {
+      iframeViewerUrl = `https://drive.google.com/file/d/${idMatch[1]}/preview`;
+    }
+  } else if (isPdf) {
+    iframeViewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(rawUrl)}&embedded=true`;
+  } else if (rawUrl && !isEpub) {
+    iframeViewerUrl = rawUrl;
+  }
+
+  const downloadUrl = book.download_url || rawUrl;
 
   const triggerDownload = (e) => {
     e.preventDefault();
@@ -56,28 +94,15 @@ const ReaderView = ({ book, location, onLocationChanged, onClose }) => {
     a.href = downloadUrl;
     a.target = '_blank';
     a.rel = 'noopener noreferrer';
-    a.download = `${book.title || 'book'}.epub`;
+    a.download = `${book.title || 'book'}${isPdf ? '.pdf' : '.epub'}`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
   };
 
-  let iframeUrl = null;
-  if (isInternetArchive && book.webReaderLink) {
-    iframeUrl = book.webReaderLink;
-  } else if (book.source === 'Open Library' && book.webReaderLink) {
-    iframeUrl = book.webReaderLink;
-  } else if (book.source === 'Project Gutenberg' && !isGutenbergEpub && book.webReaderLink) {
-    iframeUrl = book.webReaderLink;
-  } else if (isGoogleDrive && !epubData && book.download_url) {
-    const idMatch = book.download_url.match(/id=([a-zA-Z0-9_-]+)/);
-    if (idMatch) {
-      iframeUrl = `https://drive.google.com/file/d/${idMatch[1]}/preview`;
-    }
-  }
-
   return (
     <div className="reader-view">
+      {/* Header */}
       <div className="reader-header">
         <button onClick={onClose} className="reader-back-btn">
           <ArrowLeft size={18} />
@@ -106,9 +131,9 @@ const ReaderView = ({ book, location, onLocationChanged, onClose }) => {
               Download
             </button>
           )}
-          {book.previewLink && (
+          {rawUrl && (
             <a
-              href={book.previewLink}
+              href={rawUrl}
               target="_blank"
               rel="noreferrer"
               title="Open full page"
@@ -125,17 +150,18 @@ const ReaderView = ({ book, location, onLocationChanged, onClose }) => {
         </div>
       </div>
 
+      {/* Reader Body */}
       <div className="reader-content">
         {loading ? (
           <div className="reader-error" style={{ gap: '1rem' }}>
-            <Loader2 size={40} className="animate-spin" style={{ color: 'var(--accent-gold)' }} />
-            <h3>Opening "{book.title}"...</h3>
-            <p style={{ color: 'var(--text-secondary)' }}>Preparing in-browser reading engine</p>
+            <Loader2 size={44} className="animate-spin" style={{ color: 'var(--accent-gold)' }} />
+            <h3 style={{ fontSize: '1.25rem' }}>Loading "{book.title}"...</h3>
+            <p style={{ color: 'var(--text-secondary)' }}>Rendering in-browser reading engine</p>
           </div>
-        ) : (epubData || isGutenbergEpub || isDirectEpub) ? (
+        ) : (epubData && !loadError) ? (
           <div style={{ position: 'relative', height: '100%', width: '100%', background: '#fff' }}>
             <ReactReader
-              url={epubData || book.webReaderLink}
+              url={epubData}
               title={book.title}
               location={localLocation}
               locationChanged={handleLocationChanged}
@@ -147,9 +173,9 @@ const ReaderView = ({ book, location, onLocationChanged, onClose }) => {
               }}
             />
           </div>
-        ) : iframeUrl ? (
+        ) : iframeViewerUrl ? (
           <iframe
-            src={iframeUrl}
+            src={iframeViewerUrl}
             title={book.title}
             width="100%"
             height="100%"
@@ -160,26 +186,18 @@ const ReaderView = ({ book, location, onLocationChanged, onClose }) => {
             style={{ border: 'none', background: '#fff', width: '100%', height: '100%' }}
           />
         ) : (
-          <div className="reader-error">
-            <BookOpen size={48} style={{ color: 'var(--accent-gold)', marginBottom: '1rem' }} />
-            <h3 style={{ marginBottom: '0.5rem', fontSize: '1.3rem' }}>Ready to Read</h3>
-            <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem', maxWidth: '450px', textAlign: 'center', lineHeight: 1.7 }}>
-              You can download this book to read offline in your favorite reader, or open it in a new window.
-            </p>
-            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-              {downloadUrl && (
-                <button onClick={triggerDownload} className="btn-primary" style={{ cursor: 'pointer' }}>
-                  <Download size={18} />
-                  Download Book
-                </button>
-              )}
-              {book.previewLink && (
-                <a href={book.previewLink} target="_blank" rel="noreferrer" className="btn-secondary" style={{ textDecoration: 'none' }}>
-                  <ExternalLink size={18} />
-                  Open in New Tab
-                </a>
-              )}
-            </div>
+          <div style={{ position: 'relative', height: '100%', width: '100%' }}>
+            {rawUrl && (
+              <iframe
+                src={`https://docs.google.com/viewer?url=${encodeURIComponent(rawUrl)}&embedded=true`}
+                title={book.title}
+                width="100%"
+                height="100%"
+                frameBorder="0"
+                allowFullScreen
+                style={{ border: 'none', background: '#fff' }}
+              />
+            )}
           </div>
         )}
       </div>
