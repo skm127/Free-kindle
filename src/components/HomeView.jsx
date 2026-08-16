@@ -44,6 +44,18 @@ const HomeView = ({ books, recommendations, isLoading, errorMsg, onBookSelect, o
                 <span>{Math.round(featuredBook.pageCount / 30)} hrs read</span>
               </div>
             )}
+            {featuredBook.source && (
+              <span style={{ 
+                background: 'rgba(230, 200, 152, 0.15)', 
+                color: 'var(--accent-gold)', 
+                padding: '0.2rem 0.6rem', 
+                borderRadius: '4px',
+                fontSize: '0.8rem',
+                fontWeight: 600
+              }}>
+                {featuredBook.source}
+              </span>
+            )}
           </div>
           
           <p className="hero-desc">{featuredBook.description ? (featuredBook.description.length > 250 ? featuredBook.description.substring(0, 250) + '...' : featuredBook.description) : 'No description available.'}</p>
@@ -69,7 +81,7 @@ const HomeView = ({ books, recommendations, isLoading, errorMsg, onBookSelect, o
             
             <button className="btn-secondary" onClick={() => onBookSelect(featuredBook)}>
               <Heart size={18} />
-              <span>MORE INFO</span>
+              <span>DETAILS</span>
             </button>
           </div>
         </div>
@@ -78,6 +90,7 @@ const HomeView = ({ books, recommendations, isLoading, errorMsg, onBookSelect, o
           <BookCover 
             title={featuredBook.title} 
             author={featuredBook.authors?.[0] || featuredBook.author} 
+            coverUrl={featuredBook.coverUrl || featuredBook.cover}
             className="hero-cover" 
           />
         </div>
@@ -98,6 +111,7 @@ const HomeView = ({ books, recommendations, isLoading, errorMsg, onBookSelect, o
                   <BookCover 
                     title={book.title} 
                     author={book.authors?.[0] || book.author} 
+                    coverUrl={book.coverUrl || book.cover}
                     className="mini-cover" 
                   />
                   <h4 className="mini-title" title={book.title}>{book.title}</h4>
@@ -117,6 +131,7 @@ const HomeView = ({ books, recommendations, isLoading, errorMsg, onBookSelect, o
               <BookCover 
                 title={book.title} 
                 author={book.authors?.[0] || book.author} 
+                coverUrl={book.coverUrl || book.cover}
                 className="mini-cover" 
               />
               <h4 className="mini-title" title={book.title}>{book.title}</h4>

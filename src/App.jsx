@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getPopularBooks, getRecommendations } from './services/api';
+import { subscribeToAuthChanges, logoutUser } from './services/firebase';
 import Sidebar from './components/Sidebar';
 import HomeView from './components/HomeView';
 import CatalogView from './components/CatalogView';
@@ -35,6 +36,16 @@ function App() {
 
   const [recommendations, setRecommendations] = useState([]);
   const [isReading, setIsReading] = useState(false);
+
+  // Subscribe to real Firebase auth state changes
+  useEffect(() => {
+    const unsubscribe = subscribeToAuthChanges((firebaseUser) => {
+      if (firebaseUser) {
+        setUser(firebaseUser);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   // Sync state to localStorage
   useEffect(() => {
@@ -89,6 +100,14 @@ function App() {
     setIsReading(true);
   };
 
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+    } catch (_e) { /* ignore */ }
+    setUser(null);
+    localStorage.removeItem('free-kindle-user');
+  };
+
   useEffect(() => {
     const loadInitialBooks = async () => {
       setIsLoading(true);
@@ -132,7 +151,7 @@ function App() {
             user={user} 
             readlist={readlist} 
             readingProgress={readingProgress}
-            onLogout={() => setUser(null)}
+            onLogout={handleLogout}
             onBookSelect={setSelectedBook}
             onReadBook={handleReadBook}
           />
@@ -141,7 +160,16 @@ function App() {
         );
       case 'home':
       default:
-        return <HomeView books={books} recommendations={recommendations} isLoading={isLoading} errorMsg={errorMsg} onBookSelect={setSelectedBook} onReadBook={handleReadBook} />;
+        return (
+          <HomeView 
+            books={books} 
+            recommendations={recommendations} 
+            isLoading={isLoading} 
+            errorMsg={errorMsg} 
+            onBookSelect={setSelectedBook} 
+            onReadBook={handleReadBook} 
+          />
+        );
     }
   };
 

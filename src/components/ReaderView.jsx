@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ReactReader } from 'react-reader';
-import { ArrowLeft, Download, ExternalLink, AlertCircle } from 'lucide-react';
+import { ArrowLeft, Download, ExternalLink, AlertCircle, Maximize2 } from 'lucide-react';
 
 const ReaderView = ({ book, location, onLocationChanged, onClose }) => {
   const [localLocation, setLocalLocation] = useState(location || 0);
@@ -25,9 +25,7 @@ const ReaderView = ({ book, location, onLocationChanged, onClose }) => {
     if (idMatch) {
       viewerUrl = `https://drive.google.com/file/d/${idMatch[1]}/preview`;
     }
-  } else if (book.source === 'Open Library' && book.webReaderLink) {
-    viewerUrl = book.webReaderLink;
-  } else if (book.source === 'Project Gutenberg' && book.webReaderLink) {
+  } else if (book.webReaderLink) {
     viewerUrl = book.webReaderLink;
   }
 
@@ -40,7 +38,14 @@ const ReaderView = ({ book, location, onLocationChanged, onClose }) => {
           <ArrowLeft size={18} />
           <span>Back to Library</span>
         </button>
-        <h2 className="reader-title">{book.title}</h2>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', maxWidth: '60%' }}>
+          <h2 className="reader-title" style={{ maxWidth: '100%' }}>{book.title}</h2>
+          {book.source && (
+            <span style={{ fontSize: '0.75rem', color: 'var(--accent-gold)' }}>
+              Source: {book.source}
+            </span>
+          )}
+        </div>
         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
           {downloadUrl && (
             <a
@@ -56,6 +61,22 @@ const ReaderView = ({ book, location, onLocationChanged, onClose }) => {
             >
               <Download size={16} />
               Download
+            </a>
+          )}
+          {book.previewLink && (
+            <a
+              href={book.previewLink}
+              target="_blank"
+              rel="noreferrer"
+              title="Open full page"
+              style={{
+                display: 'flex', alignItems: 'center',
+                padding: '0.5rem', borderRadius: '6px',
+                background: 'rgba(255, 255, 255, 0.08)', color: 'var(--text-primary)',
+                textDecoration: 'none'
+              }}
+            >
+              <ExternalLink size={16} />
             </a>
           )}
         </div>
@@ -78,10 +99,10 @@ const ReaderView = ({ book, location, onLocationChanged, onClose }) => {
             width="100%"
             height="100%"
             frameBorder="0"
-            allow="autoplay"
+            allow="autoplay; fullscreen"
             allowFullScreen
             sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
-            style={{ border: 'none', background: '#fff' }}
+            style={{ border: 'none', background: '#fff', width: '100%', height: '100%' }}
           />
         ) : (
           <div className="reader-error">
