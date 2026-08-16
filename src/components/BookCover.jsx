@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 const coverCache = {};
-const GOOGLE_API_KEY = 'AIzaSyBIkyBzdVY-wgYlXbFQS03uhHUYxT-SCNQ';
 
 const cleanBookTitle = (title) => {
   if (!title) return '';
@@ -54,56 +53,37 @@ const BookCover = ({ title, author, coverUrl, className, style, onClick, alt }) 
       }
     } catch (_e) { /* ignore quota */ }
 
-    // 4. Try Google Books API with API Key (highest quality match)
-    let isMounted = true;
-    const authorClean = author && author !== 'Unknown Author' ? author : '';
-    const q = `intitle:${encodeURIComponent(cleanTitle)}${authorClean ? `+inauthor:${encodeURIComponent(authorClean)}` : ''}`;
-    
-    fetch(`https://www.googleapis.com/books/v1/volumes?q=${q}&maxResults=1&key=${GOOGLE_API_KEY}&fields=items(volumeInfo/imageLinks)`)
-      .then(res => res.json())
-      .then(data => {
-        if (!isMounted) return;
-        const img = data.items?.[0]?.volumeInfo?.imageLinks;
-        const url = img?.thumbnail || img?.smallThumbnail;
-        if (url) {
-          const highRes = url.replace('&edge=curl', '').replace('zoom=1', 'zoom=2').replace('http://', 'https://');
-          coverCache[cacheKey] = highRes;
-          try { localStorage.setItem(cacheKey, highRes); } catch (_e) {}
-          setImgSrc(highRes);
-        } else {
-          // 5. Fallback to Open Library Title cover
-          const olUrl = `https://covers.openlibrary.org/b/title/${encodeURIComponent(cleanTitle)}-M.jpg`;
-          setImgSrc(olUrl);
-        }
-      })
-      .catch(() => {
-        if (isMounted) {
-          const olUrl = `https://covers.openlibrary.org/b/title/${encodeURIComponent(cleanTitle)}-M.jpg`;
-          setImgSrc(olUrl);
-        }
-      });
-
-    return () => { isMounted = false; };
+    // 4. Default to Open Library high-resolution title cover
+    const olUrl = `https://covers.openlibrary.org/b/title/${encodeURIComponent(cleanTitle)}-L.jpg`;
+    setImgSrc(olUrl);
   }, [title, author, coverUrl, cacheKey, cleanTitle]);
 
   const handleImageError = () => {
-    // If current source failed and wasn't already Google Books, try Google Books
-    if (imgSrc && !imgSrc.includes('google.com') && cleanTitle) {
-      const authorClean = author && author !== 'Unknown Author' ? author : '';
-      const q = `intitle:${encodeURIComponent(cleanTitle)}${authorClean ? `+inauthor:${encodeURIComponent(authorClean)}` : ''}`;
-      fetch(`https://www.googleapis.com/books/v1/volumes?q=${q}&maxResults=1&key=${GOOGLE_API_KEY}&fields=items(volumeInfo/imageLinks)`)
+    // If direct title cover failed, try Open Library Search API
+    if (imgSrc && cleanTitle) {
+      let query = `title=${encodeURIComponent(cleanTitle)}`;
+      if (author && author !== 'Unknown Author') {
+        query += `&author=${encodeURIComponent(author)}`;
+      }
+
+      fetch(`https://openlibrary.org/search.json?${query}&limit=1`)
         .then(res => res.json())
         .then(data => {
-          const img = data.items?.[0]?.volumeInfo?.imageLinks;
-          const url = img?.thumbnail || img?.smallThumbnail;
-          if (url) {
-            const highRes = url.replace('zoom=1', 'zoom=2').replace('http://', 'https://');
-            setImgSrc(highRes);
+          const coverId = data.docs?.[0]?.cover_i;
+          if (coverId) {
+            const foundUrl = `https://covers.openlibrary.org/b/id/${coverId}-L.jpg`;
+            coverCache[cacheKey] = foundUrl;
+            try { localStorage.setItem(cacheKey, foundUrl); } catch (_e) {}
+            setImgSrc(foundUrl);
           } else {
+            coverCache[cacheKey] = null;
+            try { localStorage.setItem(cacheKey, 'none'); } catch (_e) {}
             setHasError(true);
           }
         })
-        .catch(() => setHasError(true));
+        .catch(() => {
+          setHasError(true);
+        });
     } else {
       setHasError(true);
     }

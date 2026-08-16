@@ -7,6 +7,19 @@ const BookModal = ({ book, onClose, onToggleReadlist, isInReadlist, onReadBook }
 
   const downloadUrl = book.download_url || book.webReaderLink || book.previewLink;
 
+  const triggerDownload = (e) => {
+    e.preventDefault();
+    if (!downloadUrl) return;
+    const a = document.createElement('a');
+    a.href = downloadUrl;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.download = `${book.title || 'book'}.epub`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
+
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content animate-fade-in" onClick={e => e.stopPropagation()}>
@@ -88,16 +101,14 @@ const BookModal = ({ book, onClose, onToggleReadlist, isInReadlist, onReadBook }
             )}
 
             {downloadUrl && (
-              <a 
-                href={downloadUrl} 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <button 
+                onClick={triggerDownload} 
                 className="btn-secondary"
-                style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+                style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}
               >
                 <Download size={18} />
                 DOWNLOAD
-              </a>
+              </button>
             )}
 
             <button 
