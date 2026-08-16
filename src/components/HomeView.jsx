@@ -1,5 +1,6 @@
 import React from 'react';
 import { Play, Heart, Star, Clock } from 'lucide-react';
+import BookCover from './BookCover';
 
 const HomeView = ({ books, recommendations, isLoading, errorMsg, onBookSelect, onReadBook }) => {
   if (isLoading) {
@@ -74,11 +75,10 @@ const HomeView = ({ books, recommendations, isLoading, errorMsg, onBookSelect, o
         </div>
         
         <div className="hero-cover-container" onClick={() => onBookSelect(featuredBook)}>
-          <img 
-            src={featuredBook.coverUrl} 
-            alt={featuredBook.title} 
+          <BookCover 
+            title={featuredBook.title} 
+            author={featuredBook.authors?.[0] || featuredBook.author} 
             className="hero-cover" 
-            onError={(e) => { e.target.onerror = null; e.target.src = 'https://via.placeholder.com/400x600/1e293b/d4af37?text=No+Cover'; }}
           />
         </div>
       </div>
@@ -95,12 +95,10 @@ const HomeView = ({ books, recommendations, isLoading, errorMsg, onBookSelect, o
             <div className="book-scroll-container">
               {recommendations.map(book => (
                 <div key={book.id} className="mini-book-card" onClick={() => onBookSelect(book)}>
-                  <img 
-                    src={book.coverUrl || book.cover} 
-                    alt={book.title} 
+                  <BookCover 
+                    title={book.title} 
+                    author={book.authors?.[0] || book.author} 
                     className="mini-cover" 
-                    loading="lazy" 
-                    onError={(e) => { e.target.onerror = null; e.target.src = 'https://via.placeholder.com/200x300/1e293b/d4af37?text=No+Cover'; }}
                   />
                   <h4 className="mini-title" title={book.title}>{book.title}</h4>
                   <p className="mini-author" title={book.authors ? book.authors.join(', ') : book.author}>{book.authors ? book.authors[0] : book.author}</p>
@@ -116,12 +114,10 @@ const HomeView = ({ books, recommendations, isLoading, errorMsg, onBookSelect, o
         <div className="book-scroll-container">
           {popularBooks.map(book => (
             <div key={book.id} className="mini-book-card" onClick={() => onBookSelect(book)}>
-              <img 
-                src={book.coverUrl || book.cover} 
-                alt={book.title} 
+              <BookCover 
+                title={book.title} 
+                author={book.authors?.[0] || book.author} 
                 className="mini-cover" 
-                loading="lazy" 
-                onError={(e) => { e.target.onerror = null; e.target.src = 'https://via.placeholder.com/200x300/1e293b/d4af37?text=No+Cover'; }}
               />
               <h4 className="mini-title" title={book.title}>{book.title}</h4>
               <p className="mini-author" title={book.authors ? book.authors.join(', ') : book.author}>{book.authors ? book.authors[0] : book.author}</p>

@@ -1,29 +1,33 @@
 import React, { useState } from 'react';
 import { ReactReader } from 'react-reader';
-import { ArrowLeft, Download, ExternalLink } from 'lucide-react';
+import { ArrowLeft, Download, ExternalLink, AlertCircle } from 'lucide-react';
 
 const ReaderView = ({ book, location, onLocationChanged, onClose }) => {
   const [localLocation, setLocalLocation] = useState(location || 0);
-  const [iframeError, setIframeError] = useState(false);
+  const [loadError, setLoadError] = useState(false);
 
   const handleLocationChanged = (loc) => {
     setLocalLocation(loc);
     onLocationChanged(book.id, loc);
   };
 
-  // Detect epub formats
-  const isEpub = book.webReaderLink && book.webReaderLink.includes('.epub');
-  const isGutenbergEpub = book.source === 'Project Gutenberg' && isEpub;
+  const isEpub = (book.webReaderLink && book.webReaderLink.includes('.epub')) ||
+    (book.source === 'Project Gutenberg' && book.webReaderLink && book.webReaderLink.includes('.epub'));
 
-  // Build viewer URL based on source
+  // Build the best viewer URL
   let viewerUrl = null;
-  if (book.source === 'Google Drive' && book.download_url) {
-    // Use Google Docs Viewer for Drive files (handles PDF/DOCX)
-    const encodedUrl = encodeURIComponent(book.download_url);
-    viewerUrl = `https://docs.google.com/gview?url=${encodedUrl}&embedded=true`;
+  let viewerType = 'iframe'; // 'epub' | 'iframe' | 'none'
+
+  if (isEpub) {
+    viewerType = 'epub';
+  } else if (book.source === 'Google Drive' && book.download_url) {
+    const idMatch = book.download_url.match(/id=([a-zA-Z0-9_-]+)/);
+    if (idMatch) {
+      viewerUrl = `https://drive.google.com/file/d/${idMatch[1]}/preview`;
+    }
   } else if (book.source === 'Open Library' && book.webReaderLink) {
     viewerUrl = book.webReaderLink;
-  } else if (book.source === 'Project Gutenberg' && !isGutenbergEpub && book.webReaderLink) {
+  } else if (book.source === 'Project Gutenberg' && book.webReaderLink) {
     viewerUrl = book.webReaderLink;
   }
 
@@ -37,7 +41,7 @@ const ReaderView = ({ book, location, onLocationChanged, onClose }) => {
           <span>Back to Library</span>
         </button>
         <h2 className="reader-title">{book.title}</h2>
-        <div style={{ display: 'flex', gap: '0.5rem' }}>
+        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
           {downloadUrl && (
             <a
               href={downloadUrl}
@@ -56,9 +60,9 @@ const ReaderView = ({ book, location, onLocationChanged, onClose }) => {
           )}
         </div>
       </div>
-      
+
       <div className="reader-content">
-        {(isEpub || isGutenbergEpub) && !iframeError ? (
+        {viewerType === 'epub' && !loadError ? (
           <div style={{ position: 'relative', height: '100%', width: '100%' }}>
             <ReactReader
               url={book.webReaderLink}
@@ -67,25 +71,26 @@ const ReaderView = ({ book, location, onLocationChanged, onClose }) => {
               locationChanged={handleLocationChanged}
             />
           </div>
-        ) : viewerUrl && !iframeError ? (
-          <iframe 
+        ) : viewerUrl && !loadError ? (
+          <iframe
             src={viewerUrl}
             title={book.title}
-            width="100%" 
-            height="100%" 
+            width="100%"
+            height="100%"
             frameBorder="0"
+            allow="autoplay"
             allowFullScreen
+            sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
             style={{ border: 'none', background: '#fff' }}
-            onError={() => setIframeError(true)}
           />
         ) : (
           <div className="reader-error">
-            <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>📖</div>
-            <h3 style={{ marginBottom: '0.5rem' }}>Open this book externally</h3>
-            <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem', maxWidth: '400px', textAlign: 'center', lineHeight: 1.6 }}>
-              This book format requires an external viewer. Click below to download or read it in a new tab.
+            <AlertCircle size={48} style={{ color: 'var(--accent-gold)', marginBottom: '1rem' }} />
+            <h3 style={{ marginBottom: '0.5rem', fontSize: '1.3rem' }}>Open this book externally</h3>
+            <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem', maxWidth: '450px', textAlign: 'center', lineHeight: 1.7 }}>
+              This book can be downloaded and read in your favorite e-reader app (Kindle, Apple Books, etc.)
             </p>
-            <div style={{ display: 'flex', gap: '1rem' }}>
+            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center' }}>
               {downloadUrl && (
                 <a href={downloadUrl} target="_blank" rel="noreferrer" className="btn-primary" style={{ textDecoration: 'none' }}>
                   <Download size={18} />

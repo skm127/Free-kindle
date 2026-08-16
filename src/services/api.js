@@ -53,11 +53,33 @@ export const searchBooks = async (query, maxResults = 24) => {
         .catch(err => { console.error('Gutenberg Error', err); return []; })
     ]);
     
+    // Fuzzy search drive books
     const allDriveBooks = await getDriveBooks();
-    const lowerQuery = query.toLowerCase();
+    const queryWords = query.toLowerCase().split(/\s+/).filter(w => w.length > 1);
     const driveBooks = allDriveBooks
-      .filter(b => b.title.toLowerCase().includes(lowerQuery) || b.author.toLowerCase().includes(lowerQuery))
-      .slice(0, 30)
+      .map(b => {
+        const titleLower = b.title.toLowerCase();
+        const authorLower = b.author.toLowerCase();
+        const combined = titleLower + ' ' + authorLower;
+        
+        // Exact title match gets highest score
+        if (titleLower === query.toLowerCase()) return { ...b, score: 100 };
+        // Title starts with query
+        if (titleLower.startsWith(query.toLowerCase())) return { ...b, score: 80 };
+        // All words match
+        const allMatch = queryWords.every(w => combined.includes(w));
+        if (allMatch) return { ...b, score: 60 };
+        // Any word matches title
+        const anyTitleMatch = queryWords.some(w => titleLower.includes(w));
+        if (anyTitleMatch) return { ...b, score: 40 };
+        // Any word matches author
+        const anyAuthorMatch = queryWords.some(w => authorLower.includes(w));
+        if (anyAuthorMatch) return { ...b, score: 20 };
+        return null;
+      })
+      .filter(b => b !== null)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 50)
       .map(formatDriveBook);
     
     // Interleave the results

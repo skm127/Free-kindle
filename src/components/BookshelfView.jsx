@@ -1,5 +1,6 @@
 import React from 'react';
 import { BookOpen, LogOut, Library, Clock, Bookmark, Play } from 'lucide-react';
+import BookCover from './BookCover';
 
 const BookshelfView = ({ user, readlist, readingProgress, onLogout, onBookSelect, onReadBook }) => {
   if (!user) return null;
@@ -66,12 +67,11 @@ const BookshelfView = ({ user, readlist, readingProgress, onLogout, onBookSelect
                   const progress = readingProgress[book.id] || 0;
                   return (
                     <div key={book.id} className="bookshelf-card" onClick={() => onBookSelect(book)} style={{ background: '#1e293b', padding: '1rem', borderRadius: '8px', cursor: 'pointer', display: 'flex', flexDirection: 'column' }}>
-                      <img 
-                        src={book.coverUrl || book.cover} 
-                        alt={book.title} 
+                      <BookCover 
+                        title={book.title} 
+                        author={book.authors?.[0] || book.author} 
                         className="mini-cover"
                         style={{ width: '100%', height: 'auto', aspectRatio: '2/3', objectFit: 'cover', borderRadius: '4px', marginBottom: '1rem' }}
-                        onError={(e) => { e.target.onerror = null; e.target.src = 'https://via.placeholder.com/200x300/1e293b/d4af37?text=No+Cover'; }}
                       />
                       <h4 className="mini-title" title={book.title} style={{ margin: '0 0 0.25rem 0', fontSize: '1rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{book.title}</h4>
                       <p className="mini-author" title={book.authors ? book.authors.join(', ') : book.author} style={{ margin: '0 0 1rem 0', fontSize: '0.85rem', color: '#94a3b8' }}>{book.authors ? book.authors[0] : book.author}</p>
@@ -116,12 +116,11 @@ const BookshelfView = ({ user, readlist, readingProgress, onLogout, onBookSelect
               <div className="book-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', gap: '1.5rem' }}>
                 {savedForLater.map(book => (
                   <div key={book.id} className="bookshelf-card" onClick={() => onBookSelect(book)} style={{ cursor: 'pointer', transition: 'transform 0.2s' }}>
-                    <img 
-                      src={book.coverUrl || book.cover} 
-                      alt={book.title} 
+                    <BookCover 
+                      title={book.title} 
+                      author={book.authors?.[0] || book.author} 
                       className="mini-cover"
                       style={{ width: '100%', height: 'auto', aspectRatio: '2/3', objectFit: 'cover', borderRadius: '4px', marginBottom: '0.5rem' }}
-                      onError={(e) => { e.target.onerror = null; e.target.src = 'https://via.placeholder.com/200x300/1e293b/d4af37?text=No+Cover'; }}
                     />
                     <h4 className="mini-title" title={book.title} style={{ margin: '0 0 0.25rem 0', fontSize: '0.9rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{book.title}</h4>
                     <p className="mini-author" title={book.authors ? book.authors.join(', ') : book.author} style={{ margin: 0, fontSize: '0.8rem', color: '#94a3b8', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{book.authors ? book.authors[0] : book.author}</p>

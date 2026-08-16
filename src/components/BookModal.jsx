@@ -1,5 +1,6 @@
 import React from 'react';
 import { X, BookOpen, ExternalLink, Calendar, Book, Heart } from 'lucide-react';
+import BookCover from './BookCover';
 
 const BookModal = ({ book, onClose, onToggleReadlist, isInReadlist, onReadBook }) => {
   if (!book) return null;
@@ -12,9 +13,9 @@ const BookModal = ({ book, onClose, onToggleReadlist, isInReadlist, onReadBook }
         </button>
         
         <div>
-          <img 
-            src={book.coverUrl} 
-            alt={book.title} 
+          <BookCover 
+            title={book.title} 
+            author={book.authors?.[0] || book.author} 
             className="modal-cover"
           />
         </div>

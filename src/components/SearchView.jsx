@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { searchBooks } from '../services/api';
 import BookCard from './BookCard';
+import BookCover from './BookCover';
 
 const SearchView = ({ onBookSelect }) => {
   const [query, setQuery] = useState('');
@@ -8,14 +9,21 @@ const SearchView = ({ onBookSelect }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleSearch = async (e) => {
-    e.preventDefault();
-    if (!query.trim()) return;
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (query.trim()) {
+        performSearch(query);
+      }
+    }, 500);
 
+    return () => clearTimeout(timer);
+  }, [query]);
+
+  const performSearch = async (searchQuery) => {
     setLoading(true);
     setError(null);
     try {
-      const books = await searchBooks(query);
+      const books = await searchBooks(searchQuery);
       setResults(books);
       if (books.length === 0) {
         setError('No books found for this search.');
@@ -24,6 +32,13 @@ const SearchView = ({ onBookSelect }) => {
       setError('An error occurred during search.');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (query.trim()) {
+      performSearch(query);
     }
   };
 
@@ -49,11 +64,18 @@ const SearchView = ({ onBookSelect }) => {
       ) : error ? (
         <div style={{ textAlign: 'center', color: 'var(--text-secondary)' }}>{error}</div>
       ) : (
-        <div className="book-grid">
-          {results.map(book => (
-            <BookCard key={book.id} book={book} onClick={onBookSelect} />
-          ))}
-        </div>
+        <>
+          {results.length > 0 && (
+            <div style={{ marginBottom: '1rem', color: 'var(--text-secondary)' }}>
+              Showing {results.length} results for "{query}"
+            </div>
+          )}
+          <div className="book-grid">
+            {results.map(book => (
+              <BookCard key={book.id} book={book} onClick={onBookSelect} />
+            ))}
+          </div>
+        </>
       )}
     </div>
   );
