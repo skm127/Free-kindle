@@ -1,5 +1,16 @@
-import driveBooksData from '../data/drive_books.json';
+let _driveBooks = null;
+let _driveBooksPromise = null;
 
+const getDriveBooks = async () => {
+  if (_driveBooks) return _driveBooks;
+  if (!_driveBooksPromise) {
+    _driveBooksPromise = fetch('/data/drive_books.json')
+      .then(res => res.json())
+      .then(data => { _driveBooks = data; return data; })
+      .catch(err => { console.error('Failed to load drive books:', err); _driveBooksPromise = null; return []; });
+  }
+  return _driveBooksPromise;
+};
 
 const fetchWithTimeout = async (url, options = {}) => {
   const { timeout = 10000 } = options;
@@ -17,7 +28,8 @@ const fetchWithTimeout = async (url, options = {}) => {
 
 const formatDriveBook = (book) => {
   const authorName = book.author || 'Unknown Author';
-  const cover = book.cover_url || 'https://via.placeholder.com/300x450/1e293b/d4af37?text=No+Cover';
+  const titleEncoded = encodeURIComponent(book.title || 'Untitled');
+  const cover = `https://covers.openlibrary.org/b/title/${titleEncoded}-M.jpg`;
   return {
     id: book.id,
     title: book.title || 'Untitled',
@@ -25,7 +37,7 @@ const formatDriveBook = (book) => {
     authors: [authorName],
     cover: cover,
     coverUrl: cover,
-    description: "A premium book from Catsby's E-Library.",
+    description: `A book by ${authorName}. Available for free reading and download.`,
     source: 'Google Drive',
     download_url: book.download_url,
     categories: ['Fiction', 'E-Books']
@@ -41,10 +53,11 @@ export const searchBooks = async (query, maxResults = 24) => {
         .catch(err => { console.error('Gutenberg Error', err); return []; })
     ]);
     
-    // Filter local drive books matching query
+    const allDriveBooks = await getDriveBooks();
     const lowerQuery = query.toLowerCase();
-    const driveBooks = driveBooksData
+    const driveBooks = allDriveBooks
       .filter(b => b.title.toLowerCase().includes(lowerQuery) || b.author.toLowerCase().includes(lowerQuery))
+      .slice(0, 30)
       .map(formatDriveBook);
     
     // Interleave the results
@@ -68,7 +81,9 @@ export const getPopularBooks = async () => {
         .catch(err => { console.error('Gutenberg Error', err); return []; })
     ]);
 
-    const driveBooks = driveBooksData.map(formatDriveBook);
+    const allDriveBooks = await getDriveBooks();
+    const shuffled = [...allDriveBooks].sort(() => Math.random() - 0.5);
+    const driveBooks = shuffled.slice(0, 40).map(formatDriveBook);
     return interleaveArrays(driveBooks, interleaveArrays(gutenbergBooks, openLibraryDocs));
   } catch (error) {
     console.error('Error fetching popular books:', error);
@@ -89,8 +104,9 @@ export const getBooksByCategory = async (category) => {
         .catch(err => { console.error('Gutenberg Error', err); return []; })
     ]);
 
-    // For categories, just pass some drive books randomly or all
-    const driveBooks = driveBooksData.map(formatDriveBook);
+    const allDriveBooks = await getDriveBooks();
+    const shuffled = [...allDriveBooks].sort(() => Math.random() - 0.5);
+    const driveBooks = shuffled.slice(0, 30).map(formatDriveBook);
     return interleaveArrays(driveBooks, interleaveArrays(gutenbergBooks, openLibraryDocs));
   } catch (error) {
     console.error('Error fetching category books:', error);

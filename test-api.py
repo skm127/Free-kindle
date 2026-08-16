@@ -1,22 +1,11 @@
-import requests
-import sys
-
-API_KEY = sys.argv[1]
-folder_id = '15EwYfbQSy8lfjqvP4q5YnUPaECFTnVhv'
-url = 'https://www.googleapis.com/drive/v3/files'
-params = {
-    'key': API_KEY,
-    'q': f"'{folder_id}' in parents and trashed = false",
-    'fields': 'files(id, name, mimeType)'
-}
-try:
-    response = requests.get(url, params=params)
-    print(response.status_code)
-    if response.status_code != 200:
-        print(response.text)
-    else:
-        files = response.json().get('files', [])
-        print(f'Found {len(files)} files.')
-        print(files[:3])
-except Exception as e:
-    print(e)
+import json
+d = json.load(open('src/data/drive_books.json'))
+placeholders = [b for b in d if 'placeholder' in b.get('cover_url','')]
+print(f'Total books: {len(d)}')
+print(f'With placeholder covers: {len(placeholders)}')
+print(f'Sample titles: {[b["title"][:50] for b in d[:5]]}')
+print(f'Sample download_urls: {[b["download_url"][:60] for b in d[:3]]}')
+# Check file size
+import os
+size_mb = os.path.getsize('src/data/drive_books.json') / (1024*1024)
+print(f'drive_books.json size: {size_mb:.1f} MB')

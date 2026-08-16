@@ -1,42 +1,64 @@
 import React, { useState } from 'react';
 import { ReactReader } from 'react-reader';
+import { ArrowLeft, Download, ExternalLink } from 'lucide-react';
 
 const ReaderView = ({ book, location, onLocationChanged, onClose }) => {
   const [localLocation, setLocalLocation] = useState(location || 0);
+  const [iframeError, setIframeError] = useState(false);
 
   const handleLocationChanged = (loc) => {
     setLocalLocation(loc);
     onLocationChanged(book.id, loc);
   };
 
-  const isEpub = book.webReaderLink && book.webReaderLink.endsWith('.epub');
-  const isGutenbergEpub = book.source === 'Project Gutenberg' && book.webReaderLink && book.webReaderLink.includes('.epub');
+  // Detect epub formats
+  const isEpub = book.webReaderLink && book.webReaderLink.includes('.epub');
+  const isGutenbergEpub = book.source === 'Project Gutenberg' && isEpub;
 
-  // Attempt to build a preview URL for Google Drive
-  let iframeUrl = null;
+  // Build viewer URL based on source
+  let viewerUrl = null;
   if (book.source === 'Google Drive' && book.download_url) {
-    const idMatch = book.download_url.match(/id=([a-zA-Z0-9_-]+)/);
-    if (idMatch) {
-      iframeUrl = `https://drive.google.com/file/d/${idMatch[1]}/preview`;
-    }
+    // Use Google Docs Viewer for Drive files (handles PDF/DOCX)
+    const encodedUrl = encodeURIComponent(book.download_url);
+    viewerUrl = `https://docs.google.com/gview?url=${encodedUrl}&embedded=true`;
   } else if (book.source === 'Open Library' && book.webReaderLink) {
-    iframeUrl = book.webReaderLink;
+    viewerUrl = book.webReaderLink;
   } else if (book.source === 'Project Gutenberg' && !isGutenbergEpub && book.webReaderLink) {
-    iframeUrl = book.webReaderLink;
+    viewerUrl = book.webReaderLink;
   }
+
+  const downloadUrl = book.download_url || book.webReaderLink || book.previewLink;
 
   return (
     <div className="reader-view">
       <div className="reader-header">
         <button onClick={onClose} className="reader-back-btn">
-          ← Back to Library
+          <ArrowLeft size={18} />
+          <span>Back to Library</span>
         </button>
         <h2 className="reader-title">{book.title}</h2>
-        <div style={{ width: '100px' }}></div>
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
+          {downloadUrl && (
+            <a
+              href={downloadUrl}
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                display: 'flex', alignItems: 'center', gap: '0.4rem',
+                padding: '0.5rem 1rem', borderRadius: '6px',
+                background: 'var(--accent-gold)', color: 'var(--accent-button-text)',
+                textDecoration: 'none', fontSize: '0.85rem', fontWeight: 600
+              }}
+            >
+              <Download size={16} />
+              Download
+            </a>
+          )}
+        </div>
       </div>
       
       <div className="reader-content">
-        {(isEpub || isGutenbergEpub) ? (
+        {(isEpub || isGutenbergEpub) && !iframeError ? (
           <div style={{ position: 'relative', height: '100%', width: '100%' }}>
             <ReactReader
               url={book.webReaderLink}
@@ -45,21 +67,38 @@ const ReaderView = ({ book, location, onLocationChanged, onClose }) => {
               locationChanged={handleLocationChanged}
             />
           </div>
-        ) : iframeUrl ? (
+        ) : viewerUrl && !iframeError ? (
           <iframe 
-            src={iframeUrl}
+            src={viewerUrl}
             title={book.title}
             width="100%" 
             height="100%" 
             frameBorder="0"
             allowFullScreen
-          ></iframe>
+            style={{ border: 'none', background: '#fff' }}
+            onError={() => setIframeError(true)}
+          />
         ) : (
           <div className="reader-error">
-            <h3>Sorry, this book cannot be read in the browser.</h3>
-            <a href={book.download_url || book.webReaderLink || book.previewLink || '#'} target="_blank" rel="noreferrer" className="gr-button">
-              Download or Read Externally
-            </a>
+            <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>📖</div>
+            <h3 style={{ marginBottom: '0.5rem' }}>Open this book externally</h3>
+            <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem', maxWidth: '400px', textAlign: 'center', lineHeight: 1.6 }}>
+              This book format requires an external viewer. Click below to download or read it in a new tab.
+            </p>
+            <div style={{ display: 'flex', gap: '1rem' }}>
+              {downloadUrl && (
+                <a href={downloadUrl} target="_blank" rel="noreferrer" className="btn-primary" style={{ textDecoration: 'none' }}>
+                  <Download size={18} />
+                  Download Book
+                </a>
+              )}
+              {book.previewLink && (
+                <a href={book.previewLink} target="_blank" rel="noreferrer" className="btn-secondary" style={{ textDecoration: 'none' }}>
+                  <ExternalLink size={18} />
+                  Open Externally
+                </a>
+              )}
+            </div>
           </div>
         )}
       </div>
