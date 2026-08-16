@@ -176,7 +176,7 @@ export const searchBooks = async (query, maxResults = 40) => {
       .slice(0, 25)
       .map(formatDriveBook);
 
-    // Fuzzy search GitHub books
+    // Fuzzy search GitHub books (Tech + Self-Help + Philosophy)
     const ghMatches = allGhBooks
       .map(b => {
         const titleLower = (b.title || '').toLowerCase();
@@ -194,7 +194,7 @@ export const searchBooks = async (query, maxResults = 40) => {
       })
       .filter(b => b !== null)
       .sort((a, b) => b.score - a.score)
-      .slice(0, 15);
+      .slice(0, 20);
     
     // Interleave all sources
     const curatedLocal = interleaveArrays(driveMatches, ghMatches);
@@ -209,8 +209,8 @@ export const searchBooks = async (query, maxResults = 40) => {
 export const getPopularBooks = async () => {
   try {
     const [iaBooks, openLibraryDocs, gutenbergBooks, allDriveBooks, allGhBooks] = await Promise.all([
-      fetchInternetArchivePopular('fiction', 12).catch(err => { console.error('IA Error', err); return []; }),
-      fetchWithTimeout(`https://openlibrary.org/search.json?subject=fiction&limit=12&sort=editions`)
+      fetchInternetArchivePopular('bestsellers', 12).catch(err => { console.error('IA Error', err); return []; }),
+      fetchWithTimeout(`https://openlibrary.org/search.json?subject=bestseller&limit=12&sort=editions`)
         .then(res => res.json())
         .then(data => data.docs ? data.docs.map(formatOpenLibraryBook) : [])
         .catch(err => { console.error('OL Error', err); return []; }),
@@ -223,12 +223,12 @@ export const getPopularBooks = async () => {
     ]);
 
     const shuffledDrive = [...allDriveBooks].sort(() => Math.random() - 0.5);
-    const driveBooks = shuffledDrive.slice(0, 20).map(formatDriveBook);
+    const driveBooks = shuffledDrive.slice(0, 18).map(formatDriveBook);
 
     const shuffledGh = [...allGhBooks].sort(() => Math.random() - 0.5);
-    const ghBooks = shuffledGh.slice(0, 8);
+    const ghBooks = shuffledGh.slice(0, 12);
 
-    const localPool = interleaveArrays(driveBooks, ghBooks);
+    const localPool = interleaveArrays(ghBooks, driveBooks);
     const onlinePool = interleaveArrays(iaBooks, interleaveArrays(gutenbergBooks, openLibraryDocs));
     return interleaveArrays(localPool, onlinePool);
   } catch (error) {
@@ -240,20 +240,48 @@ export const getPopularBooks = async () => {
 export const getBooksByCategory = async (category) => {
   try {
     const catLower = category.toLowerCase();
-    const isTech = ['data_science', 'cybersecurity', 'programming', 'algorithms', 'web_development', 'machine_learning'].includes(catLower);
+    const allGhBooks = await getGithubBooks();
 
-    if (isTech) {
-      const allGhBooks = await getGithubBooks();
-      let matched = [];
-      if (catLower === 'data_science' || catLower === 'machine_learning') {
-        matched = allGhBooks.filter(b => (b.categories || []).some(c => c.toLowerCase().includes('data') || c.toLowerCase().includes('machine') || c.toLowerCase().includes('learning')));
-      } else if (catLower === 'cybersecurity') {
-        matched = allGhBooks.filter(b => (b.categories || []).some(c => c.toLowerCase().includes('security') || c.toLowerCase().includes('cyber') || c.toLowerCase().includes('pentest') || c.toLowerCase().includes('hack')));
-      } else if (catLower === 'programming') {
-        matched = allGhBooks.filter(b => (b.categories || []).some(c => c.toLowerCase().includes('programming') || c.toLowerCase().includes('python') || c.toLowerCase().includes('javascript') || c.toLowerCase().includes('rust') || c.toLowerCase().includes('go') || c.toLowerCase().includes('c++')));
-      } else {
-        matched = allGhBooks;
-      }
+    if (catLower === 'self_help' || catLower === 'personal_growth') {
+      const matched = allGhBooks.filter(b => 
+        (b.categories || []).some(c => c.toLowerCase().includes('self-help') || c.toLowerCase().includes('mind') || c.toLowerCase().includes('growth')) ||
+        (b.title || '').toLowerCase().includes('habit') || (b.title || '').toLowerCase().includes('thinking') || (b.title || '').toLowerCase().includes('power')
+      );
+      const shuffled = [...matched].sort(() => Math.random() - 0.5);
+      return shuffled.slice(0, 40);
+    }
+
+    if (catLower === 'philosophy') {
+      const matched = allGhBooks.filter(b => 
+        (b.categories || []).some(c => c.toLowerCase().includes('philosophy') || c.toLowerCase().includes('wisdom')) ||
+        (b.title || '').toLowerCase().includes('meditation') || (b.title || '').toLowerCase().includes('war') || (b.title || '').toLowerCase().includes('stoic')
+      );
+      const shuffled = [...matched].sort(() => Math.random() - 0.5);
+      return shuffled.slice(0, 40);
+    }
+
+    if (catLower === 'business') {
+      const matched = allGhBooks.filter(b => 
+        (b.categories || []).some(c => c.toLowerCase().includes('business') || c.toLowerCase().includes('success') || c.toLowerCase().includes('startup'))
+      );
+      const shuffled = [...matched].sort(() => Math.random() - 0.5);
+      return shuffled.slice(0, 40);
+    }
+
+    if (catLower === 'data_science' || catLower === 'machine_learning') {
+      const matched = allGhBooks.filter(b => (b.categories || []).some(c => c.toLowerCase().includes('data') || c.toLowerCase().includes('machine') || c.toLowerCase().includes('learning')));
+      const shuffled = [...matched].sort(() => Math.random() - 0.5);
+      return shuffled.slice(0, 40);
+    }
+
+    if (catLower === 'cybersecurity') {
+      const matched = allGhBooks.filter(b => (b.categories || []).some(c => c.toLowerCase().includes('security') || c.toLowerCase().includes('cyber') || c.toLowerCase().includes('pentest') || c.toLowerCase().includes('hack')));
+      const shuffled = [...matched].sort(() => Math.random() - 0.5);
+      return shuffled.slice(0, 40);
+    }
+
+    if (catLower === 'programming') {
+      const matched = allGhBooks.filter(b => (b.categories || []).some(c => c.toLowerCase().includes('programming') || c.toLowerCase().includes('python') || c.toLowerCase().includes('javascript') || c.toLowerCase().includes('rust') || c.toLowerCase().includes('go') || c.toLowerCase().includes('c++')));
       const shuffled = [...matched].sort(() => Math.random() - 0.5);
       return shuffled.slice(0, 40);
     }
