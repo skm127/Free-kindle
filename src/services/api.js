@@ -1,6 +1,9 @@
 let _driveBooks = null;
 let _driveBooksPromise = null;
 
+let _githubBooks = null;
+let _githubBooksPromise = null;
+
 const getDriveBooks = async () => {
   if (_driveBooks) return _driveBooks;
   if (!_driveBooksPromise) {
@@ -10,6 +13,17 @@ const getDriveBooks = async () => {
       .catch(err => { console.error('Failed to load drive books:', err); _driveBooksPromise = null; return []; });
   }
   return _driveBooksPromise;
+};
+
+const getGithubBooks = async () => {
+  if (_githubBooks) return _githubBooks;
+  if (!_githubBooksPromise) {
+    _githubBooksPromise = fetch('/data/github_books.json')
+      .then(res => res.json())
+      .then(data => { _githubBooks = data; return data; })
+      .catch(err => { console.error('Failed to load github books:', err); _githubBooksPromise = null; return []; });
+  }
+  return _githubBooksPromise;
 };
 
 const fetchWithTimeout = async (url, options = {}) => {
@@ -29,7 +43,7 @@ const fetchWithTimeout = async (url, options = {}) => {
 const formatDriveBook = (book) => {
   const authorName = book.author || 'Unknown Author';
   const titleEncoded = encodeURIComponent(book.title || 'Untitled');
-  const cover = `https://covers.openlibrary.org/b/title/${titleEncoded}-M.jpg`;
+  const cover = book.cover_url || `https://covers.openlibrary.org/b/title/${titleEncoded}-M.jpg`;
   return {
     id: book.id,
     title: book.title || 'Untitled',
@@ -41,6 +55,7 @@ const formatDriveBook = (book) => {
     source: 'Google Drive',
     download_url: book.download_url,
     previewLink: book.download_url,
+    webReaderLink: book.download_url,
     categories: ['Fiction', 'E-Books']
   };
 };
@@ -53,7 +68,6 @@ const formatInternetArchiveBook = (item) => {
   let desc = 'Free readable book from the Internet Archive digital library.';
   if (item.description) {
     desc = Array.isArray(item.description) ? item.description[0] : item.description;
-    // Strip basic html tags if any
     desc = desc.replace(/<[^>]*>?/gm, '').trim();
   }
 
@@ -83,7 +97,7 @@ const formatInternetArchiveBook = (item) => {
 const formatOpenLibraryBook = (item) => {
   const coverUrl = item.cover_i 
     ? `https://covers.openlibrary.org/b/id/${item.cover_i}-L.jpg`
-    : 'https://via.placeholder.com/300x450?text=No+Cover';
+    : `https://covers.openlibrary.org/b/title/${encodeURIComponent(item.title || '')}-M.jpg`;
 
   return {
     id: `ol_${item.key}`,
@@ -117,8 +131,8 @@ const formatGutenbergBook = (item) => {
     author: authors[0],
     authors: authors,
     description: `A public domain classic available via Project Gutenberg. Downloaded ${item.download_count || 0} times.`,
-    cover: item.formats?.['image/jpeg'] || 'https://via.placeholder.com/300x450?text=No+Cover',
-    coverUrl: item.formats?.['image/jpeg'] || 'https://via.placeholder.com/300x450?text=No+Cover',
+    cover: item.formats?.['image/jpeg'] || `https://covers.openlibrary.org/b/title/${encodeURIComponent(item.title || '')}-M.jpg`,
+    coverUrl: item.formats?.['image/jpeg'] || `https://covers.openlibrary.org/b/title/${encodeURIComponent(item.title || '')}-M.jpg`,
     publishedDate: 'Public Domain',
     pageCount: null,
     categories: item.subjects ? item.subjects.slice(0, 5) : [],
@@ -130,19 +144,18 @@ const formatGutenbergBook = (item) => {
 
 export const searchBooks = async (query, maxResults = 40) => {
   try {
-    const [iaBooks, openLibraryDocs, gutenbergBooks] = await Promise.all([
-      fetchInternetArchiveSearch(query, 12)
-        .catch(err => { console.error('IA Error', err); return []; }),
-      fetchOpenLibrarySearch(query, 10)
-        .catch(err => { console.error('OL Error', err); return []; }),
-      fetchGutenbergSearch(query)
-        .catch(err => { console.error('Gutenberg Error', err); return []; })
+    const [iaBooks, openLibraryDocs, gutenbergBooks, allDriveBooks, allGhBooks] = await Promise.all([
+      fetchInternetArchiveSearch(query, 12).catch(err => { console.error('IA Error', err); return []; }),
+      fetchOpenLibrarySearch(query, 10).catch(err => { console.error('OL Error', err); return []; }),
+      fetchGutenbergSearch(query).catch(err => { console.error('Gutenberg Error', err); return []; }),
+      getDriveBooks(),
+      getGithubBooks()
     ]);
     
-    // Fuzzy search Google Drive indexed books
-    const allDriveBooks = await getDriveBooks();
     const queryWords = query.toLowerCase().split(/\s+/).filter(w => w.length > 1);
-    const driveBooks = allDriveBooks
+    
+    // Fuzzy search Google Drive indexed books
+    const driveMatches = allDriveBooks
       .map(b => {
         const titleLower = (b.title || '').toLowerCase();
         const authorLower = (b.author || '').toLowerCase();
@@ -160,12 +173,33 @@ export const searchBooks = async (query, maxResults = 40) => {
       })
       .filter(b => b !== null)
       .sort((a, b) => b.score - a.score)
-      .slice(0, 30)
+      .slice(0, 25)
       .map(formatDriveBook);
+
+    // Fuzzy search GitHub books
+    const ghMatches = allGhBooks
+      .map(b => {
+        const titleLower = (b.title || '').toLowerCase();
+        const authorLower = (b.author || '').toLowerCase();
+        const catLower = (b.categories || []).join(' ').toLowerCase();
+        const combined = `${titleLower} ${authorLower} ${catLower}`;
+        
+        if (titleLower === query.toLowerCase()) return { ...b, score: 95 };
+        if (titleLower.startsWith(query.toLowerCase())) return { ...b, score: 75 };
+        const allMatch = queryWords.length > 0 && queryWords.every(w => combined.includes(w));
+        if (allMatch) return { ...b, score: 55 };
+        const anyWord = queryWords.some(w => combined.includes(w));
+        if (anyWord) return { ...b, score: 35 };
+        return null;
+      })
+      .filter(b => b !== null)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 15);
     
-    // Interleave all 4 sources
+    // Interleave all sources
+    const curatedLocal = interleaveArrays(driveMatches, ghMatches);
     const onlineBooks = interleaveArrays(iaBooks, interleaveArrays(gutenbergBooks, openLibraryDocs));
-    return interleaveArrays(driveBooks, onlineBooks).slice(0, maxResults);
+    return interleaveArrays(curatedLocal, onlineBooks).slice(0, maxResults);
   } catch (error) {
     console.error('Error searching books:', error);
     return [];
@@ -174,9 +208,8 @@ export const searchBooks = async (query, maxResults = 40) => {
 
 export const getPopularBooks = async () => {
   try {
-    const [iaBooks, openLibraryDocs, gutenbergBooks] = await Promise.all([
-      fetchInternetArchivePopular('fiction', 12)
-        .catch(err => { console.error('IA Error', err); return []; }),
+    const [iaBooks, openLibraryDocs, gutenbergBooks, allDriveBooks, allGhBooks] = await Promise.all([
+      fetchInternetArchivePopular('fiction', 12).catch(err => { console.error('IA Error', err); return []; }),
       fetchWithTimeout(`https://openlibrary.org/search.json?subject=fiction&limit=12&sort=editions`)
         .then(res => res.json())
         .then(data => data.docs ? data.docs.map(formatOpenLibraryBook) : [])
@@ -184,15 +217,20 @@ export const getPopularBooks = async () => {
       fetchWithTimeout('https://gutendex.com/books/?topic=fiction')
         .then(res => res.json())
         .then(data => data.results ? data.results.map(formatGutenbergBook) : [])
-        .catch(err => { console.error('Gutenberg Error', err); return []; })
+        .catch(err => { console.error('Gutenberg Error', err); return []; }),
+      getDriveBooks(),
+      getGithubBooks()
     ]);
 
-    const allDriveBooks = await getDriveBooks();
-    const shuffled = [...allDriveBooks].sort(() => Math.random() - 0.5);
-    const driveBooks = shuffled.slice(0, 24).map(formatDriveBook);
+    const shuffledDrive = [...allDriveBooks].sort(() => Math.random() - 0.5);
+    const driveBooks = shuffledDrive.slice(0, 20).map(formatDriveBook);
 
-    const onlineBooks = interleaveArrays(iaBooks, interleaveArrays(gutenbergBooks, openLibraryDocs));
-    return interleaveArrays(driveBooks, onlineBooks);
+    const shuffledGh = [...allGhBooks].sort(() => Math.random() - 0.5);
+    const ghBooks = shuffledGh.slice(0, 8);
+
+    const localPool = interleaveArrays(driveBooks, ghBooks);
+    const onlinePool = interleaveArrays(iaBooks, interleaveArrays(gutenbergBooks, openLibraryDocs));
+    return interleaveArrays(localPool, onlinePool);
   } catch (error) {
     console.error('Error fetching popular books:', error);
     return [];
@@ -201,9 +239,27 @@ export const getPopularBooks = async () => {
 
 export const getBooksByCategory = async (category) => {
   try {
-    const [iaBooks, openLibraryDocs, gutenbergBooks] = await Promise.all([
-      fetchInternetArchivePopular(category, 15)
-        .catch(err => { console.error('IA Error', err); return []; }),
+    const catLower = category.toLowerCase();
+    const isTech = ['data_science', 'cybersecurity', 'programming', 'algorithms', 'web_development', 'machine_learning'].includes(catLower);
+
+    if (isTech) {
+      const allGhBooks = await getGithubBooks();
+      let matched = [];
+      if (catLower === 'data_science' || catLower === 'machine_learning') {
+        matched = allGhBooks.filter(b => (b.categories || []).some(c => c.toLowerCase().includes('data') || c.toLowerCase().includes('machine') || c.toLowerCase().includes('learning')));
+      } else if (catLower === 'cybersecurity') {
+        matched = allGhBooks.filter(b => (b.categories || []).some(c => c.toLowerCase().includes('security') || c.toLowerCase().includes('cyber') || c.toLowerCase().includes('pentest') || c.toLowerCase().includes('hack')));
+      } else if (catLower === 'programming') {
+        matched = allGhBooks.filter(b => (b.categories || []).some(c => c.toLowerCase().includes('programming') || c.toLowerCase().includes('python') || c.toLowerCase().includes('javascript') || c.toLowerCase().includes('rust') || c.toLowerCase().includes('go') || c.toLowerCase().includes('c++')));
+      } else {
+        matched = allGhBooks;
+      }
+      const shuffled = [...matched].sort(() => Math.random() - 0.5);
+      return shuffled.slice(0, 40);
+    }
+
+    const [iaBooks, openLibraryDocs, gutenbergBooks, allDriveBooks] = await Promise.all([
+      fetchInternetArchivePopular(category, 15).catch(err => { console.error('IA Error', err); return []; }),
       fetchWithTimeout(`https://openlibrary.org/search.json?subject=${encodeURIComponent(category)}&limit=12&sort=editions`)
         .then(res => res.json())
         .then(data => data.docs ? data.docs.map(formatOpenLibraryBook) : [])
@@ -211,10 +267,10 @@ export const getBooksByCategory = async (category) => {
       fetchWithTimeout(`https://gutendex.com/books/?topic=${encodeURIComponent(category)}`)
         .then(res => res.json())
         .then(data => data.results ? data.results.map(formatGutenbergBook) : [])
-        .catch(err => { console.error('Gutenberg Error', err); return []; })
+        .catch(err => { console.error('Gutenberg Error', err); return []; }),
+      getDriveBooks()
     ]);
 
-    const allDriveBooks = await getDriveBooks();
     const shuffled = [...allDriveBooks].sort(() => Math.random() - 0.5);
     const driveBooks = shuffled.slice(0, 20).map(formatDriveBook);
 

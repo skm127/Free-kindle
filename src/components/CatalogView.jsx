@@ -1,16 +1,30 @@
 import React, { useState } from 'react';
 import { getBooksByCategory } from '../services/api';
-import { BookOpen, Rocket, Heart, Skull, BookMarked, Globe, Sparkles } from 'lucide-react';
+import { 
+  BookOpen, 
+  Rocket, 
+  Heart, 
+  Skull, 
+  BookMarked, 
+  Globe, 
+  Sparkles, 
+  Database, 
+  ShieldAlert, 
+  Code 
+} from 'lucide-react';
 import BookCard from './BookCard';
 
 const CATEGORIES = [
+  { id: 'data_science', name: 'Data Science & AI', icon: Database },
+  { id: 'cybersecurity', name: 'Cybersecurity & Hacking', icon: ShieldAlert },
+  { id: 'programming', name: 'Programming & Software', icon: Code },
   { id: 'fiction', name: 'Fiction', icon: BookOpen },
   { id: 'science_fiction', name: 'Science Fiction', icon: Rocket },
+  { id: 'fantasy', name: 'Fantasy', icon: Sparkles },
   { id: 'romance', name: 'Romance', icon: Heart },
-  { id: 'thriller', name: 'Thriller', icon: Skull },
+  { id: 'thriller', name: 'Thriller & Mystery', icon: Skull },
   { id: 'history', name: 'History', icon: BookMarked },
   { id: 'science', name: 'Science', icon: Globe },
-  { id: 'fantasy', name: 'Fantasy', icon: Sparkles },
 ];
 
 const CatalogView = ({ onBookSelect }) => {
@@ -34,7 +48,7 @@ const CatalogView = ({ onBookSelect }) => {
   if (selectedCategory) {
     return (
       <div className="animate-fade-in">
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
           <h2 className="section-title" style={{ margin: 0 }}>
             <span style={{ cursor: 'pointer', color: 'var(--text-muted)' }} onClick={() => setSelectedCategory(null)}>
               Catalog
