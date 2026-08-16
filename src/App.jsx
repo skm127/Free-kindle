@@ -9,6 +9,7 @@ import BookModal from './components/BookModal';
 import LoginView from './components/LoginView';
 import BookshelfView from './components/BookshelfView';
 import ReaderView from './components/ReaderView';
+import WebImportView from './components/WebImportView';
 import './index.css';
 
 const safeParse = (key, fallback) => {
@@ -145,6 +146,15 @@ function App() {
         return <SearchView onBookSelect={setSelectedBook} />;
       case 'catalog':
         return <CatalogView onBookSelect={setSelectedBook} />;
+      case 'web':
+        return (
+          <WebImportView 
+            onBookSelect={setSelectedBook}
+            onReadBook={handleReadBook}
+            onAddToReadlist={toggleReadlist}
+            isInReadlist={isInReadlist}
+          />
+        );
       case 'profile':
         return user ? (
           <BookshelfView 
