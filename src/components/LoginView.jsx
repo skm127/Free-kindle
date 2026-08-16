@@ -105,18 +105,18 @@ const LoginView = ({ onLogin }) => {
             )}
 
             <div className="login-field">
-              <label htmlFor="login-email" className="login-label">Email address or phone number</label>
+              <label htmlFor="login-email" className="login-label">Email, username, or phone number</label>
               <div className="login-input-wrapper">
                 <Mail size={18} className="login-input-icon" />
                 <input
                   id="login-email"
-                  type="email"
+                  type="text"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@example.com"
+                  placeholder="you@example.com or any username"
                   className="login-input"
-                  autoComplete="email"
+                  autoComplete="username"
                 />
               </div>
             </div>
