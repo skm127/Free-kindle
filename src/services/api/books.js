@@ -37,6 +37,7 @@ export const formatDriveBook = (book) => {
     authors: [authorName],
     cover: cover,
     coverUrl: cover,
+    cover_url: cover,
     description: `A book by ${authorName}. Available for free reading and download.`,
     source: 'Google Drive',
     download_url: book.download_url,

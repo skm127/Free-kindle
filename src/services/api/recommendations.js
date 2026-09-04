@@ -19,8 +19,19 @@ export const getPopularBooks = async () => {
     const featuredHero = heroes.length > 0 ? heroes[Math.floor(Math.random() * heroes.length)] : allGhBooks[0];
 
     const otherGh = allGhBooks.filter(b => b.id !== featuredHero?.id);
-    const shuffledGh = [...otherGh].sort(() => Math.random() - 0.5).slice(0, 24);
-    const shuffledDrive = [...allDriveBooks].sort(() => Math.random() - 0.5).slice(0, 20).map(formatDriveBook);
+    const ghWithCovers = otherGh.filter(b => (b.cover_url || b.coverUrl || '').includes('/b/id/'));
+    const ghRest = otherGh.filter(b => !(b.cover_url || b.coverUrl || '').includes('/b/id/'));
+    const shuffledGh = [
+      ...[...ghWithCovers].sort(() => Math.random() - 0.5).slice(0, 24),
+      ...[...ghRest].sort(() => Math.random() - 0.5).slice(0, 6)
+    ];
+
+    const driveWithCovers = allDriveBooks.filter(b => (b.cover_url || '').includes('/b/id/'));
+    const driveRest = allDriveBooks.filter(b => !(b.cover_url || '').includes('/b/id/'));
+    const shuffledDrive = [
+      ...[...driveWithCovers].sort(() => Math.random() - 0.5).slice(0, 24),
+      ...[...driveRest].sort(() => Math.random() - 0.5).slice(0, 6)
+    ].map(formatDriveBook);
 
     const localPool = interleaveArrays(shuffledGh, shuffledDrive);
     if (featuredHero) {

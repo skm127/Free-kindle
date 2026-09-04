@@ -70,6 +70,7 @@ const BookshelfView = ({ user, readlist, readingProgress, onLogout, onBookSelect
                       <BookCover 
                         title={book.title} 
                         author={book.authors?.[0] || book.author} 
+                        coverUrl={book.coverUrl || book.cover_url || book.cover}
                         className="mini-cover"
                         style={{ width: '100%', height: 'auto', aspectRatio: '2/3', objectFit: 'cover', borderRadius: '4px', marginBottom: '1rem' }}
                       />
@@ -119,6 +120,7 @@ const BookshelfView = ({ user, readlist, readingProgress, onLogout, onBookSelect
                     <BookCover 
                       title={book.title} 
                       author={book.authors?.[0] || book.author} 
+                      coverUrl={book.coverUrl || book.cover_url || book.cover}
                       className="mini-cover"
                       style={{ width: '100%', height: 'auto', aspectRatio: '2/3', objectFit: 'cover', borderRadius: '4px', marginBottom: '0.5rem' }}
                     />

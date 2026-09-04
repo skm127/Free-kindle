@@ -7,7 +7,7 @@ const BookCard = ({ book, onClick }) => {
       <BookCover 
         title={book.title} 
         author={book.authors ? book.authors[0] : book.author} 
-        coverUrl={book.coverUrl || book.cover}
+        coverUrl={book.coverUrl || book.cover_url || book.cover}
         className="mini-cover"
         style={{ width: '100%', height: 'auto', aspectRatio: '2/3', borderRadius: '4px', marginBottom: '0.75rem' }}
       />

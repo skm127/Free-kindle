@@ -31,7 +31,7 @@ const BookModal = ({ book, onClose, onToggleReadlist, isInReadlist, onReadBook }
           <BookCover 
             title={book.title} 
             author={book.authors?.[0] || book.author} 
-            coverUrl={book.coverUrl || book.cover}
+            coverUrl={book.coverUrl || book.cover_url || book.cover}
             className="modal-cover"
           />
         </div>

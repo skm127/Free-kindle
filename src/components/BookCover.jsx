@@ -1,7 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const BookCover = ({ title, author, coverUrl, className, style, onClick, alt }) => {
+// In-memory cache for dynamic title -> real Open Library cover_i URL
+const COVER_CACHE = new Map();
+
+const BookCover = ({ title, author, coverUrl, cover_url, cover, className, style, onClick, alt }) => {
+  const initialUrl = coverUrl || cover_url || cover || null;
+  const [currentCover, setCurrentCover] = useState(initialUrl);
   const [imgError, setImgError] = useState(false);
+  const [isResolving, setIsResolving] = useState(false);
 
   const cleanTitle = (title || 'Untitled')
     .replace(/\.(epub|pdf|azw3|mobi|cbz|cbr|txt)$/i, '')
@@ -11,7 +17,57 @@ const BookCover = ({ title, author, coverUrl, className, style, onClick, alt }) 
     .replace(/\s+/g, ' ')
     .trim();
 
-  // Premium palette based on title hash
+  // Update cover if prop changes
+  useEffect(() => {
+    const nextUrl = coverUrl || cover_url || cover || null;
+    if (nextUrl) {
+      setCurrentCover(nextUrl);
+      setImgError(false);
+    }
+  }, [coverUrl, cover_url, cover]);
+
+  // Handle image error: try to self-heal using Open Library search
+  const handleImageError = async () => {
+    if (isResolving) return;
+
+    // Check in-memory cache first
+    const cacheKey = cleanTitle.toLowerCase();
+    if (COVER_CACHE.has(cacheKey)) {
+      const cached = COVER_CACHE.get(cacheKey);
+      if (cached && cached !== currentCover) {
+        setCurrentCover(cached);
+        return;
+      }
+      setImgError(true);
+      return;
+    }
+
+    setIsResolving(true);
+    try {
+      // Query Open Library Search for real cover_i
+      const searchUrl = `https://openlibrary.org/search.json?title=${encodeURIComponent(cleanTitle)}&fields=title,cover_i&limit=1`;
+      const res = await fetch(searchUrl, { signal: AbortSignal.timeout(5000) });
+      if (res.ok) {
+        const data = await res.json();
+        const doc = data.docs?.[0];
+        if (doc?.cover_i) {
+          const resolvedUrl = `https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg`;
+          COVER_CACHE.set(cacheKey, resolvedUrl);
+          setCurrentCover(resolvedUrl);
+          setIsResolving(false);
+          return;
+        }
+      }
+    } catch (_e) {
+      // Network error or timeout
+    }
+
+    COVER_CACHE.set(cacheKey, null);
+    setIsResolving(false);
+    setImgError(true);
+  };
+
+  // Premium palette based on title hash for the digital hardcover
   const palettes = [
     { bg: 'linear-gradient(145deg, #0f172a 0%, #1e293b 100%)', border: '#38bdf8', text: '#f8fafc', sub: '#94a3b8', accent: '#38bdf8' },
     { bg: 'linear-gradient(145deg, #1e1b4b 0%, #312e81 100%)', border: '#a855f7', text: '#faf5ff', sub: '#d8b4fe', accent: '#c084fc' },
@@ -24,8 +80,8 @@ const BookCover = ({ title, author, coverUrl, className, style, onClick, alt }) 
   const hash = (cleanTitle || 'Book').split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
   const theme = palettes[hash % palettes.length];
 
-  // If coverUrl is missing or failed, render the digital hardcover
-  if (imgError || !coverUrl || coverUrl.includes('placeholder.com') || coverUrl.includes('No+Cover')) {
+  // If cover is missing or errored and couldn't be resolved, render digital hardcover
+  if (imgError || !currentCover || currentCover.includes('placeholder.com') || currentCover.includes('No+Cover')) {
     return (
       <div
         className={className}
@@ -49,7 +105,6 @@ const BookCover = ({ title, author, coverUrl, className, style, onClick, alt }) 
           transition: 'transform 0.2s, box-shadow 0.2s'
         }}
       >
-        {/* Book Header Tag */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <span style={{
             fontSize: '0.65rem',
@@ -63,7 +118,6 @@ const BookCover = ({ title, author, coverUrl, className, style, onClick, alt }) 
           <span style={{ fontSize: '0.75rem', opacity: 0.7 }}>📖</span>
         </div>
 
-        {/* Center: Title & Author */}
         <div style={{ marginTop: 'auto', marginBottom: 'auto' }}>
           <h4 style={{
             fontSize: 'clamp(0.8rem, 1.25vw, 1rem)',
@@ -96,7 +150,6 @@ const BookCover = ({ title, author, coverUrl, className, style, onClick, alt }) 
           )}
         </div>
 
-        {/* Bottom Footer Border */}
         <div style={{
           borderTop: '1px solid rgba(255, 255, 255, 0.1)',
           paddingTop: '0.4rem',
@@ -113,7 +166,7 @@ const BookCover = ({ title, author, coverUrl, className, style, onClick, alt }) 
 
   return (
     <img
-      src={coverUrl}
+      src={currentCover}
       alt={alt || cleanTitle || 'Book cover'}
       className={className}
       style={{
@@ -125,7 +178,7 @@ const BookCover = ({ title, author, coverUrl, className, style, onClick, alt }) 
       }}
       onClick={onClick}
       loading="lazy"
-      onError={() => setImgError(true)}
+      onError={handleImageError}
     />
   );
 };
