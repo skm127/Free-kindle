@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Home, LayoutGrid, User, Library, Globe } from 'lucide-react';
+import { Search, Home, LayoutGrid, User, Library, Globe, Trophy } from 'lucide-react';
 
 const Sidebar = ({ activeTab, setActiveTab }) => {
   return (
@@ -25,6 +25,15 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
           title="Home & Bestsellers"
         >
           <Home size={24} />
+        </button>
+
+        <button 
+          className={`nav-item ${activeTab === 'rankings' ? 'active' : ''}`}
+          onClick={() => setActiveTab('rankings')}
+          aria-label="Rankings"
+          title="Book Rankings"
+        >
+          <Trophy size={24} />
         </button>
         
         <button 

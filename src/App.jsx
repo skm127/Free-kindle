@@ -10,6 +10,7 @@ import LoginView from './components/LoginView';
 import BookshelfView from './components/BookshelfView';
 import ReaderView from './components/ReaderView';
 import WebImportView from './components/WebImportView';
+import RankingsView from './components/RankingsView';
 import './index.css';
 
 const safeParse = (key, fallback) => {
@@ -144,6 +145,8 @@ function App() {
     switch (activeTab) {
       case 'search':
         return <SearchView onBookSelect={setSelectedBook} />;
+      case 'rankings':
+        return <RankingsView onBookSelect={setSelectedBook} onReadBook={handleReadBook} />;
       case 'catalog':
         return <CatalogView onBookSelect={setSelectedBook} />;
       case 'web':
