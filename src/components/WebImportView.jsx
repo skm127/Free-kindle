@@ -37,6 +37,19 @@ const WebImportView = ({ onBookSelect, onReadBook, onAddToReadlist, isInReadlist
   const [importedBook, setImportedBook] = useState(null);
   const [successMessage, setSuccessMessage] = useState('');
 
+  const isValidBookUrl = (url) => {
+    try {
+      const parsed = new URL(url);
+      // Only allow http/https
+      if (!['http:', 'https:'].includes(parsed.protocol)) return false;
+      // Block obviously dangerous patterns
+      if (parsed.hostname === 'localhost' || parsed.hostname.startsWith('192.168.') || parsed.hostname.startsWith('10.') || parsed.hostname === '127.0.0.1') return false;
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
   const parseUrl = (rawUrl) => {
     const url = rawUrl.trim();
     if (!url) return null;
@@ -114,6 +127,12 @@ const WebImportView = ({ onBookSelect, onReadBook, onAddToReadlist, isInReadlist
   const handleImport = (e) => {
     e.preventDefault();
     if (!urlInput.trim()) return;
+
+    if (!isValidBookUrl(urlInput.trim())) {
+      // show error to user
+      alert('Please enter a valid URL.');
+      return;
+    }
 
     setAnalyzing(true);
     setSuccessMessage('');

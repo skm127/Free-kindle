@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getPopularBooks, getRecommendations } from './services/api';
+import { getPopularBooks, getRecommendations } from './services/api/index.js';
 import { subscribeToAuthChanges, logoutUser } from './services/firebase';
 import Sidebar from './components/Sidebar';
 import HomeView from './components/HomeView';

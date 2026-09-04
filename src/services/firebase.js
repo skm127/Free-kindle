@@ -13,14 +13,18 @@ import {
 } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCcBI8QYuPtCDru5DIuU34bip8zPQtY5eg",
-  authDomain: "free-kindle-bae2f.firebaseapp.com",
-  projectId: "free-kindle-bae2f",
-  storageBucket: "free-kindle-bae2f.firebasestorage.app",
-  messagingSenderId: "193695543739",
-  appId: "1:193695543739:web:1508a4818588f4fb31549e",
-  measurementId: "G-Y6PCWPEX0H"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
+
+if (!firebaseConfig.apiKey) {
+  console.error('Missing Firebase configuration. Check your .env file.');
+}
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { searchBooks } from '../services/api';
+import { searchBooks } from '../services/api/index.js';
 import BookCard from './BookCard';
 import BookCover from './BookCover';
 

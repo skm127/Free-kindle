@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getBooksByCategory } from '../services/api';
+import { getBooksByCategory } from '../services/api/index.js';
 import { 
   Brain,
   Flame,

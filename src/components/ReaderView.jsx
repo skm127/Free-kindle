@@ -195,6 +195,7 @@ const ReaderView = ({ book, location, onLocationChanged, onClose }) => {
                 height="100%"
                 frameBorder="0"
                 allowFullScreen
+                sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-downloads"
                 style={{ border: 'none', background: '#fff' }}
               />
             )}
