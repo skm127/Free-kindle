@@ -13,18 +13,14 @@ import {
 } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
-  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || 'AIzaSyCcBI8QYuPtCDru5DIuU34bip8zPQtY5eg',
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || 'free-kindle-bae2f.firebaseapp.com',
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || 'free-kindle-bae2f',
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || 'free-kindle-bae2f.firebasestorage.app',
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || '193695543739',
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || '1:193695543739:web:1508a4818588f4fb31549e',
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID || 'G-Y6PCWPEX0H'
 };
-
-if (!firebaseConfig.apiKey) {
-  console.error('Missing Firebase configuration. Check your .env file.');
-}
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
