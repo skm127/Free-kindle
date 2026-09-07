@@ -1,17 +1,23 @@
 import React from 'react';
 import { Search, Home, LayoutGrid, User, Library, Globe, Trophy } from 'lucide-react';
+import { analyticsService } from '../services/analytics';
 
 const Sidebar = ({ activeTab, setActiveTab }) => {
+  const handleNavigation = (tab) => {
+    setActiveTab(tab);
+    analyticsService.trackInteraction('sidebar_navigation', tab, { fromTab: activeTab, toTab: tab });
+  };
+
   return (
     <div className="sidebar">
-      <div className="sidebar-logo" onClick={() => setActiveTab('home')} style={{ cursor: 'pointer' }} title="Free Kindle">
+      <div className="sidebar-logo" onClick={() => handleNavigation('home')} style={{ cursor: 'pointer' }} title="Free Kindle">
         <Library size={32} />
       </div>
       
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%' }}>
         <button 
           className={`nav-item ${activeTab === 'search' ? 'active' : ''}`}
-          onClick={() => setActiveTab('search')}
+          onClick={() => handleNavigation('search')}
           aria-label="Search"
           title="Search Library"
         >
@@ -20,7 +26,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
         
         <button 
           className={`nav-item ${activeTab === 'home' ? 'active' : ''}`}
-          onClick={() => setActiveTab('home')}
+          onClick={() => handleNavigation('home')}
           aria-label="Home"
           title="Home & Bestsellers"
         >
@@ -29,7 +35,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
 
         <button 
           className={`nav-item ${activeTab === 'rankings' ? 'active' : ''}`}
-          onClick={() => setActiveTab('rankings')}
+          onClick={() => handleNavigation('rankings')}
           aria-label="Rankings"
           title="Book Rankings"
         >
@@ -38,7 +44,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
         
         <button 
           className={`nav-item ${activeTab === 'catalog' ? 'active' : ''}`}
-          onClick={() => setActiveTab('catalog')}
+          onClick={() => handleNavigation('catalog')}
           aria-label="Catalog"
           title="Browse Categories"
         >
@@ -47,7 +53,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
 
         <button 
           className={`nav-item ${activeTab === 'web' ? 'active' : ''}`}
-          onClick={() => setActiveTab('web')}
+          onClick={() => handleNavigation('web')}
           aria-label="Import & Web Access"
           title="Read Any Link from Internet"
         >
@@ -56,7 +62,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
         
         <button 
           className={`nav-item ${activeTab === 'profile' ? 'active' : ''}`}
-          onClick={() => setActiveTab('profile')}
+          onClick={() => handleNavigation('profile')}
           aria-label="My Bookshelf"
           title="My Bookshelf & Profile"
         >

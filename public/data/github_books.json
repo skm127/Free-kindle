@@ -1,5 +1,24 @@
 [
   {
+    "id": "rm_deep_work_cal_newport",
+    "title": "Deep Work: Rules for Focused Success in a Distracted World",
+    "author": "Cal Newport",
+    "authors": [
+      "Cal Newport"
+    ],
+    "categories": [
+      "Self-Help & Mind",
+      "Bestsellers",
+      "Personal Growth"
+    ],
+    "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Deep%20work%20rules%20for%20focused%20success%20in%20a%20distracted%20world.epub",
+    "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Deep%20work%20rules%20for%20focused%20success%20in%20a%20distracted%20world.epub",
+    "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Deep%20work%20rules%20for%20focused%20success%20in%20a%20distracted%20world.epub",
+    "cover_url": "/covers/rm_deep_work_cal_newport.jpg",
+    "coverUrl": "/covers/rm_deep_work_cal_newport.jpg",
+    "source": "Self-Improvement Library"
+  },
+  {
     "id": "gh_12a4a495b579",
     "title": "Algorithm design manual",
     "author": "Unknown Author",
@@ -1720,9 +1739,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/A%20Wish%20in%20the%20Dark%20by%20Christina%20Soontornvat%20%5BSoontornvat%2C%20Christina%5D%20%28z-lib.org%29.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/A%20Wish%20in%20the%20Dark%20by%20Christina%20Soontornvat%20%5BSoontornvat%2C%20Christina%5D%20%28z-lib.org%29.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/A%20Wish%20in%20the%20Dark%20by%20Christina%20Soontornvat%20%5BSoontornvat%2C%20Christina%5D%20%28z-lib.org%29.epub",
-    "cover_url": "https://covers.openlibrary.org/b/id/9322953-L.jpg",
+    "cover_url": "/covers/rm_a1cde51720.jpg",
     "source": "Self-Improvement Library",
-    "coverUrl": "https://covers.openlibrary.org/b/id/9322953-L.jpg"
+    "coverUrl": "/covers/rm_a1cde51720.jpg"
   },
   {
     "id": "rm_a8c08474e1",
@@ -1757,8 +1776,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/All%20About%20Love%20New%20Visions%20by%20Bell%20Hooks.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/All%20About%20Love%20New%20Visions%20by%20Bell%20Hooks.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/All%20About%20Love%20New%20Visions%20by%20Bell%20Hooks.epub",
-    "cover_url": "https://covers.openlibrary.org/b/title/All%20About%20Love%20New%20Visions-L.jpg",
-    "source": "Self-Improvement Library"
+    "cover_url": "/covers/rm_8bccb64d91.jpg",
+    "source": "Self-Improvement Library",
+    "coverUrl": "/covers/rm_8bccb64d91.jpg"
   },
   {
     "id": "rm_3b08e5db17",
@@ -1775,8 +1795,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/All%20the%20Light%20We%20Cannot%20See%20A%20Novel%20by%20Anthony%20Doerr.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/All%20the%20Light%20We%20Cannot%20See%20A%20Novel%20by%20Anthony%20Doerr.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/All%20the%20Light%20We%20Cannot%20See%20A%20Novel%20by%20Anthony%20Doerr.epub",
-    "cover_url": "https://covers.openlibrary.org/b/id/8231991-L.jpg",
-    "source": "Self-Improvement Library"
+    "cover_url": "/covers/rm_3b08e5db17.jpg",
+    "source": "Self-Improvement Library",
+    "coverUrl": "/covers/rm_3b08e5db17.jpg"
   },
   {
     "id": "rm_8c7a2c2346",
@@ -1848,8 +1869,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Atomic%20Habits%20An%20by%20James%20Clear.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Atomic%20Habits%20An%20by%20James%20Clear.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Atomic%20Habits%20An%20by%20James%20Clear.epub",
-    "cover_url": "https://covers.openlibrary.org/b/id/10543105-L.jpg",
-    "source": "Self-Improvement Library"
+    "cover_url": "/covers/rm_12e542bfb8.jpg",
+    "source": "Self-Improvement Library",
+    "coverUrl": "/covers/rm_12e542bfb8.jpg"
   },
   {
     "id": "rm_f69634dee4",
@@ -1866,8 +1888,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Big%20Data%20A%20Very%20Short%20Introduction%20by%20Dawn%20E.%20Holmes.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Big%20Data%20A%20Very%20Short%20Introduction%20by%20Dawn%20E.%20Holmes.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Big%20Data%20A%20Very%20Short%20Introduction%20by%20Dawn%20E.%20Holmes.epub",
-    "cover_url": "https://covers.openlibrary.org/b/title/Big%20Data%20A%20Very%20Short%20Introduction-L.jpg",
-    "source": "Self-Improvement Library"
+    "cover_url": "/covers/rm_f69634dee4.jpg",
+    "source": "Self-Improvement Library",
+    "coverUrl": "/covers/rm_f69634dee4.jpg"
   },
   {
     "id": "rm_7df8a9be65",
@@ -1884,8 +1907,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Breath%20The%20New%20Science%20of%20a%20Lost%20Art%20by%20James%20Nestor.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Breath%20The%20New%20Science%20of%20a%20Lost%20Art%20by%20James%20Nestor.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Breath%20The%20New%20Science%20of%20a%20Lost%20Art%20by%20James%20Nestor.epub",
-    "cover_url": "https://covers.openlibrary.org/b/id/10554867-L.jpg",
-    "source": "Self-Improvement Library"
+    "cover_url": "/covers/rm_7df8a9be65.jpg",
+    "source": "Self-Improvement Library",
+    "coverUrl": "/covers/rm_7df8a9be65.jpg"
   },
   {
     "id": "rm_a124bec85c",
@@ -2105,9 +2129,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Die%20with%20Zero%20by%20Bill%20Perkins.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Die%20with%20Zero%20by%20Bill%20Perkins.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Die%20with%20Zero%20by%20Bill%20Perkins.epub",
-    "cover_url": "https://covers.openlibrary.org/b/id/10433791-L.jpg",
+    "cover_url": "/covers/rm_4d80f03379.jpg",
     "source": "Self-Improvement Library",
-    "coverUrl": "https://covers.openlibrary.org/b/id/10433791-L.jpg"
+    "coverUrl": "/covers/rm_4d80f03379.jpg"
   },
   {
     "id": "rm_9be449f5d3",
@@ -2329,9 +2353,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Finish%20What%20You%20Start%20by%20Peter%20Hollins.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Finish%20What%20You%20Start%20by%20Peter%20Hollins.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Finish%20What%20You%20Start%20by%20Peter%20Hollins.epub",
-    "cover_url": "https://covers.openlibrary.org/b/id/10531822-L.jpg",
+    "cover_url": "/covers/rm_2e08531128.jpg",
     "source": "Self-Improvement Library",
-    "coverUrl": "https://covers.openlibrary.org/b/id/10531822-L.jpg"
+    "coverUrl": "/covers/rm_2e08531128.jpg"
   },
   {
     "id": "rm_319256cd96",
@@ -2367,8 +2391,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Four%20Thousand%20Weeks%20Embrace%20your%20limits.%20Change%20your%20life.%20by%20OLIVER%20BURKEMAN.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Four%20Thousand%20Weeks%20Embrace%20your%20limits.%20Change%20your%20life.%20by%20OLIVER%20BURKEMAN.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Four%20Thousand%20Weeks%20Embrace%20your%20limits.%20Change%20your%20life.%20by%20OLIVER%20BURKEMAN.epub",
-    "cover_url": "https://covers.openlibrary.org/b/title/Four%20Thousand%20Weeks%20Embrace%20your%20limits.%20Change%20your%20life.-L.jpg",
-    "source": "Self-Improvement Library"
+    "cover_url": "/covers/rm_ebba2fab54.jpg",
+    "source": "Self-Improvement Library",
+    "coverUrl": "/covers/rm_ebba2fab54.jpg"
   },
   {
     "id": "rm_18f180fe9e",
@@ -2403,9 +2428,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Happy%20Sexy%20Millionaire%20by%20Steven%20Bartlett.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Happy%20Sexy%20Millionaire%20by%20Steven%20Bartlett.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Happy%20Sexy%20Millionaire%20by%20Steven%20Bartlett.epub",
-    "cover_url": "https://covers.openlibrary.org/b/id/12440455-L.jpg",
+    "cover_url": "/covers/rm_a65c75dac1.jpg",
     "source": "Self-Improvement Library",
-    "coverUrl": "https://covers.openlibrary.org/b/id/12440455-L.jpg"
+    "coverUrl": "/covers/rm_a65c75dac1.jpg"
   },
   {
     "id": "rm_dfad2c2466",
@@ -2422,8 +2447,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Harry%20Potter%20The%20Complete%20Collection%20by%20J.K.%20Rowling.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Harry%20Potter%20The%20Complete%20Collection%20by%20J.K.%20Rowling.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Harry%20Potter%20The%20Complete%20Collection%20by%20J.K.%20Rowling.epub",
-    "cover_url": "https://covers.openlibrary.org/b/title/Harry%20Potter%20The%20Complete%20Collection-L.jpg",
-    "source": "Self-Improvement Library"
+    "cover_url": "/covers/rm_dfad2c2466.jpg",
+    "source": "Self-Improvement Library",
+    "coverUrl": "/covers/rm_dfad2c2466.jpg"
   },
   {
     "id": "rm_17e8ae3285",
@@ -2440,8 +2466,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Heaven%20and%20Hell%20A%20History%20of%20the%20Afterlife%20by%20Bart%20D.%20Ehrman.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Heaven%20and%20Hell%20A%20History%20of%20the%20Afterlife%20by%20Bart%20D.%20Ehrman.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Heaven%20and%20Hell%20A%20History%20of%20the%20Afterlife%20by%20Bart%20D.%20Ehrman.epub",
-    "cover_url": "https://covers.openlibrary.org/b/title/Heaven%20and%20Hell%20A%20History%20of%20the%20Afterlife-L.jpg",
-    "source": "Self-Improvement Library"
+    "cover_url": "/covers/rm_17e8ae3285.jpg",
+    "source": "Self-Improvement Library",
+    "coverUrl": "/covers/rm_17e8ae3285.jpg"
   },
   {
     "id": "rm_560fefda6f",
@@ -2477,8 +2504,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/House%20of%20Earth%20and%20Blood%20by%20Sarah%20J.%20Maas.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/House%20of%20Earth%20and%20Blood%20by%20Sarah%20J.%20Maas.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/House%20of%20Earth%20and%20Blood%20by%20Sarah%20J.%20Maas.epub",
-    "cover_url": "https://covers.openlibrary.org/b/id/8995156-L.jpg",
-    "source": "Self-Improvement Library"
+    "cover_url": "/covers/rm_b617dbf576.jpg",
+    "source": "Self-Improvement Library",
+    "coverUrl": "/covers/rm_b617dbf576.jpg"
   },
   {
     "id": "rm_ed6189bc0f",
@@ -2514,9 +2542,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/How%20to%20Be%20Perfect%20by%20Michael%20Schur.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/How%20to%20Be%20Perfect%20by%20Michael%20Schur.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/How%20to%20Be%20Perfect%20by%20Michael%20Schur.epub",
-    "cover_url": "https://covers.openlibrary.org/b/id/13346698-L.jpg",
+    "cover_url": "/covers/rm_62bd6707ad.jpg",
     "source": "Self-Improvement Library",
-    "coverUrl": "https://covers.openlibrary.org/b/id/13346698-L.jpg"
+    "coverUrl": "/covers/rm_62bd6707ad.jpg"
   },
   {
     "id": "rm_630f7fe238",
@@ -2571,9 +2599,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/How%20to%20Win%20Friends%20and%20Influence%20People%20in%20the%20Digital%20Age%20by%20Dale%20Carnegie%20and%20Associates.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/How%20to%20Win%20Friends%20and%20Influence%20People%20in%20the%20Digital%20Age%20by%20Dale%20Carnegie%20and%20Associates.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/How%20to%20Win%20Friends%20and%20Influence%20People%20in%20the%20Digital%20Age%20by%20Dale%20Carnegie%20and%20Associates.epub",
-    "cover_url": "https://covers.openlibrary.org/b/id/9095869-L.jpg",
+    "cover_url": "/covers/rm_45185b6f7b.jpg",
     "source": "Self-Improvement Library",
-    "coverUrl": "https://covers.openlibrary.org/b/id/9095869-L.jpg"
+    "coverUrl": "/covers/rm_45185b6f7b.jpg"
   },
   {
     "id": "rm_f09de0c37f",
@@ -2609,9 +2637,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/It%20Doesnt%20Have%20to%20Be%20Crazy%20at%20Work.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/It%20Doesnt%20Have%20to%20Be%20Crazy%20at%20Work.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/It%20Doesnt%20Have%20to%20Be%20Crazy%20at%20Work.epub",
-    "cover_url": "https://covers.openlibrary.org/b/id/8359215-L.jpg",
+    "cover_url": "/covers/rm_e3d093eeab.jpg",
     "source": "Self-Improvement Library",
-    "coverUrl": "https://covers.openlibrary.org/b/id/8359215-L.jpg"
+    "coverUrl": "/covers/rm_e3d093eeab.jpg"
   },
   {
     "id": "rm_a1daf2187f",
@@ -2684,8 +2712,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Knowledge%20A%20Very%20Short%20Introduction%20by%20Jennifer%20Nagel.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Knowledge%20A%20Very%20Short%20Introduction%20by%20Jennifer%20Nagel.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Knowledge%20A%20Very%20Short%20Introduction%20by%20Jennifer%20Nagel.epub",
-    "cover_url": "https://covers.openlibrary.org/b/title/Knowledge%20A%20Very%20Short%20Introduction-L.jpg",
-    "source": "Self-Improvement Library"
+    "cover_url": "/covers/rm_6c42f419b9.jpg",
+    "source": "Self-Improvement Library",
+    "coverUrl": "/covers/rm_6c42f419b9.jpg"
   },
   {
     "id": "rm_2b4e2065b1",
@@ -2702,9 +2731,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Kuala%20Lumpur%20at%20War%201939-1945%20by%20Andrew%20Barber.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Kuala%20Lumpur%20at%20War%201939-1945%20by%20Andrew%20Barber.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Kuala%20Lumpur%20at%20War%201939-1945%20by%20Andrew%20Barber.epub",
-    "cover_url": "https://covers.openlibrary.org/b/id/8776788-L.jpg",
+    "cover_url": "/covers/rm_2b4e2065b1.jpg",
     "source": "Self-Improvement Library",
-    "coverUrl": "https://covers.openlibrary.org/b/id/8776788-L.jpg"
+    "coverUrl": "/covers/rm_2b4e2065b1.jpg"
   },
   {
     "id": "rm_bb6989aad9",
@@ -2721,8 +2750,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Liberalism%20A%20Very%20Short%20Introduction%20%28Very%20Short%20Introductions%29%20by%20Michael%20Freeden.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Liberalism%20A%20Very%20Short%20Introduction%20%28Very%20Short%20Introductions%29%20by%20Michael%20Freeden.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Liberalism%20A%20Very%20Short%20Introduction%20%28Very%20Short%20Introductions%29%20by%20Michael%20Freeden.epub",
-    "cover_url": "https://covers.openlibrary.org/b/title/Liberalism%20A%20Very%20Short%20Introduction%20%28Very%20Short%20Introductions%29-L.jpg",
-    "source": "Self-Improvement Library"
+    "cover_url": "/covers/rm_bb6989aad9.jpg",
+    "source": "Self-Improvement Library",
+    "coverUrl": "/covers/rm_bb6989aad9.jpg"
   },
   {
     "id": "rm_47a5cd8dcb",
@@ -2739,9 +2769,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Live%20Your%20Best%20Life%20by%20Dr.%20Stuart%20Farrimond.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Live%20Your%20Best%20Life%20by%20Dr.%20Stuart%20Farrimond.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Live%20Your%20Best%20Life%20by%20Dr.%20Stuart%20Farrimond.epub",
-    "cover_url": "https://covers.openlibrary.org/b/id/14753913-L.jpg",
+    "cover_url": "/covers/rm_47a5cd8dcb.jpg",
     "source": "Self-Improvement Library",
-    "coverUrl": "https://covers.openlibrary.org/b/id/14753913-L.jpg"
+    "coverUrl": "/covers/rm_47a5cd8dcb.jpg"
   },
   {
     "id": "rm_63f49979cd",
@@ -2776,9 +2806,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Making%20Sense%20of%20Race%20by%20Edward%20Dutton.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Making%20Sense%20of%20Race%20by%20Edward%20Dutton.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Making%20Sense%20of%20Race%20by%20Edward%20Dutton.epub",
-    "cover_url": "https://covers.openlibrary.org/b/id/10597305-L.jpg",
+    "cover_url": "/covers/rm_e6489effac.jpg",
     "source": "Self-Improvement Library",
-    "coverUrl": "https://covers.openlibrary.org/b/id/10597305-L.jpg"
+    "coverUrl": "/covers/rm_e6489effac.jpg"
   },
   {
     "id": "rm_36a5d49695",
@@ -2795,8 +2825,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Marketing%20Made%20Simple%20for%20Any%20Business%20by%20Donald%20Miller.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Marketing%20Made%20Simple%20for%20Any%20Business%20by%20Donald%20Miller.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Marketing%20Made%20Simple%20for%20Any%20Business%20by%20Donald%20Miller.epub",
-    "cover_url": "https://covers.openlibrary.org/b/title/Marketing%20Made%20Simple%20for%20Any%20Business-L.jpg",
-    "source": "Self-Improvement Library"
+    "cover_url": "/covers/rm_36a5d49695.jpg",
+    "source": "Self-Improvement Library",
+    "coverUrl": "/covers/rm_36a5d49695.jpg"
   },
   {
     "id": "rm_cd73760650",
@@ -2813,9 +2844,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Mastery%20by%20Robert%20Greene.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Mastery%20by%20Robert%20Greene.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Mastery%20by%20Robert%20Greene.epub",
-    "cover_url": "https://covers.openlibrary.org/b/id/7561012-L.jpg",
+    "cover_url": "/covers/rm_cd73760650.jpg",
     "source": "Self-Improvement Library",
-    "coverUrl": "https://covers.openlibrary.org/b/id/7561012-L.jpg"
+    "coverUrl": "/covers/rm_cd73760650.jpg"
   },
   {
     "id": "rm_39b8ff7a60",
@@ -2904,9 +2935,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Mindset%20Changing%20by%20Carol%20S.%20Dweck.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Mindset%20Changing%20by%20Carol%20S.%20Dweck.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Mindset%20Changing%20by%20Carol%20S.%20Dweck.epub",
-    "cover_url": "https://covers.openlibrary.org/b/id/13283673-L.jpg",
+    "cover_url": "/covers/rm_edf4e4a87d.jpg",
     "source": "Self-Improvement Library",
-    "coverUrl": "https://covers.openlibrary.org/b/id/13283673-L.jpg"
+    "coverUrl": "/covers/rm_edf4e4a87d.jpg"
   },
   {
     "id": "rm_786263e3b8",
@@ -2923,8 +2954,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Mythology%20%20Timeless%20Tales%20of%20Gods%20and%20Heroes%2C%20Deluxe%20Illustrated%20Edition.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Mythology%20%20Timeless%20Tales%20of%20Gods%20and%20Heroes%2C%20Deluxe%20Illustrated%20Edition.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Mythology%20%20Timeless%20Tales%20of%20Gods%20and%20Heroes%2C%20Deluxe%20Illustrated%20Edition.epub",
-    "cover_url": "https://covers.openlibrary.org/b/title/Mythology%20Timeless%20Tales%20of%20Gods%20and%20Heroes%2C%20Deluxe%20Illustrated%20Edition-L.jpg",
-    "source": "Self-Improvement Library"
+    "cover_url": "/covers/rm_786263e3b8.jpg",
+    "source": "Self-Improvement Library",
+    "coverUrl": "/covers/rm_786263e3b8.jpg"
   },
   {
     "id": "rm_e034467f8a",
@@ -2960,8 +2992,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Never%20Split%20the%20Difference%20Negotiating%20by%20Chris%20Voss%20Tahl%20Raz.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Never%20Split%20the%20Difference%20Negotiating%20by%20Chris%20Voss%20Tahl%20Raz.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Never%20Split%20the%20Difference%20Negotiating%20by%20Chris%20Voss%20Tahl%20Raz.epub",
-    "cover_url": "https://covers.openlibrary.org/b/title/Never%20Split%20the%20Difference%20Negotiating-L.jpg",
-    "source": "Self-Improvement Library"
+    "cover_url": "/covers/rm_5ce22eeda4.jpg",
+    "source": "Self-Improvement Library",
+    "coverUrl": "/covers/rm_5ce22eeda4.jpg"
   },
   {
     "id": "rm_e5cb320f8f",
@@ -2996,8 +3029,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/No%20Excuses%20The%20Power%20of%20Self-Discipline%20by%20Brian%20Tracy.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/No%20Excuses%20The%20Power%20of%20Self-Discipline%20by%20Brian%20Tracy.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/No%20Excuses%20The%20Power%20of%20Self-Discipline%20by%20Brian%20Tracy.epub",
-    "cover_url": "https://covers.openlibrary.org/b/title/No%20Excuses%20The%20Power%20of%20Self%20Discipline-L.jpg",
-    "source": "Self-Improvement Library"
+    "cover_url": "/covers/rm_c5c13fede6.jpg",
+    "source": "Self-Improvement Library",
+    "coverUrl": "/covers/rm_c5c13fede6.jpg"
   },
   {
     "id": "rm_f85f3c426a",
@@ -3070,9 +3104,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Psychology-and-Pedagogy-of-Anger.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Psychology-and-Pedagogy-of-Anger.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Psychology-and-Pedagogy-of-Anger.epub",
-    "cover_url": "https://covers.openlibrary.org/b/id/2490332-L.jpg",
+    "cover_url": "/covers/rm_20322600ec.jpg",
     "source": "Self-Improvement Library",
-    "coverUrl": "https://covers.openlibrary.org/b/id/2490332-L.jpg"
+    "coverUrl": "/covers/rm_20322600ec.jpg"
   },
   {
     "id": "rm_20bb030f71",
@@ -3126,8 +3160,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Quiet%20Kids%20by%20Christine%20Fonseca.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Quiet%20Kids%20by%20Christine%20Fonseca.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Quiet%20Kids%20by%20Christine%20Fonseca.epub",
-    "cover_url": "https://covers.openlibrary.org/b/id/8114487-L.jpg",
-    "source": "Self-Improvement Library"
+    "cover_url": "/covers/rm_80d4eabcb5.jpg",
+    "source": "Self-Improvement Library",
+    "coverUrl": "/covers/rm_80d4eabcb5.jpg"
   },
   {
     "id": "rm_7d5bcc30bb",
@@ -3199,9 +3234,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Self%20Confidence%20%20by%20Dan%20Johnston.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Self%20Confidence%20%20by%20Dan%20Johnston.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Self%20Confidence%20%20by%20Dan%20Johnston.epub",
-    "cover_url": "https://covers.openlibrary.org/b/id/489897-L.jpg",
+    "cover_url": "/covers/rm_0c1985d7fe.jpg",
     "source": "Self-Improvement Library",
-    "coverUrl": "https://covers.openlibrary.org/b/id/489897-L.jpg"
+    "coverUrl": "/covers/rm_0c1985d7fe.jpg"
   },
   {
     "id": "rm_ba2d7c9d93",
@@ -3218,9 +3253,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Slavery%20and%20Islam%20by%20Jonathan%20A.C.%20Brown.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Slavery%20and%20Islam%20by%20Jonathan%20A.C.%20Brown.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Slavery%20and%20Islam%20by%20Jonathan%20A.C.%20Brown.epub",
-    "cover_url": "https://covers.openlibrary.org/b/id/8787544-L.jpg",
+    "cover_url": "/covers/rm_ba2d7c9d93.jpg",
     "source": "Self-Improvement Library",
-    "coverUrl": "https://covers.openlibrary.org/b/id/8787544-L.jpg"
+    "coverUrl": "/covers/rm_ba2d7c9d93.jpg"
   },
   {
     "id": "rm_ba61e6b8b9",
@@ -3237,8 +3272,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/So%20good%20they%20cant%20ignore%20you%20by%20Cal%20Newport.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/So%20good%20they%20cant%20ignore%20you%20by%20Cal%20Newport.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/So%20good%20they%20cant%20ignore%20you%20by%20Cal%20Newport.epub",
-    "cover_url": "https://covers.openlibrary.org/b/title/So%20good%20they%20cant%20ignore%20you-L.jpg",
-    "source": "Self-Improvement Library"
+    "cover_url": "/covers/rm_ba61e6b8b9.jpg",
+    "source": "Self-Improvement Library",
+    "coverUrl": "/covers/rm_ba61e6b8b9.jpg"
   },
   {
     "id": "rm_2d8c1e9789",
@@ -3255,8 +3291,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Social%20Engineering%20The%20Art%20of%20Psychological%20Warfare%20by%20Vince%20Reynolds.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Social%20Engineering%20The%20Art%20of%20Psychological%20Warfare%20by%20Vince%20Reynolds.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Social%20Engineering%20The%20Art%20of%20Psychological%20Warfare%20by%20Vince%20Reynolds.epub",
-    "cover_url": "https://covers.openlibrary.org/b/title/Social%20Engineering%20The%20Art%20of%20Psychological%20Warfare-L.jpg",
-    "source": "Self-Improvement Library"
+    "cover_url": "/covers/rm_2d8c1e9789.jpg",
+    "source": "Self-Improvement Library",
+    "coverUrl": "/covers/rm_2d8c1e9789.jpg"
   },
   {
     "id": "rm_2cc36403c6",
@@ -3291,8 +3328,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Spies%2C%20Lies%2C%20and%20Algorithms%20The%20History%20and%20Future%20of%20American%20Intelligence.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Spies%2C%20Lies%2C%20and%20Algorithms%20The%20History%20and%20Future%20of%20American%20Intelligence.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Spies%2C%20Lies%2C%20and%20Algorithms%20The%20History%20and%20Future%20of%20American%20Intelligence.epub",
-    "cover_url": "https://covers.openlibrary.org/b/title/Spies%2C%20Lies%2C%20and%20Algorithms%20The%20History%20and%20Future%20of%20American%20Intelligence-L.jpg",
-    "source": "Self-Improvement Library"
+    "cover_url": "/covers/rm_349c85fb30.jpg",
+    "source": "Self-Improvement Library",
+    "coverUrl": "/covers/rm_349c85fb30.jpg"
   },
   {
     "id": "rm_3d67309da7",
@@ -3363,9 +3401,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Ten%20Times%20Happier%20by%20Owen%20OKane.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Ten%20Times%20Happier%20by%20Owen%20OKane.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/Ten%20Times%20Happier%20by%20Owen%20OKane.epub",
-    "cover_url": "https://covers.openlibrary.org/b/id/15245326-L.jpg",
+    "cover_url": "/covers/rm_cadadcc268.jpg",
     "source": "Self-Improvement Library",
-    "coverUrl": "https://covers.openlibrary.org/b/id/15245326-L.jpg"
+    "coverUrl": "/covers/rm_cadadcc268.jpg"
   },
   {
     "id": "rm_0c90c7ad42",
@@ -3382,9 +3420,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%204-Hour%20Workweek%20by%20Timothy%20Ferriss.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%204-Hour%20Workweek%20by%20Timothy%20Ferriss.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%204-Hour%20Workweek%20by%20Timothy%20Ferriss.epub",
-    "cover_url": "https://covers.openlibrary.org/b/id/539652-L.jpg",
+    "cover_url": "/covers/rm_0c90c7ad42.jpg",
     "source": "Self-Improvement Library",
-    "coverUrl": "https://covers.openlibrary.org/b/id/539652-L.jpg"
+    "coverUrl": "/covers/rm_0c90c7ad42.jpg"
   },
   {
     "id": "rm_a98c77aa15",
@@ -3401,8 +3439,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%2048%20Laws%20of%20Power%20by%20Robert%20Greene.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%2048%20Laws%20of%20Power%20by%20Robert%20Greene.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%2048%20Laws%20of%20Power%20by%20Robert%20Greene.epub",
-    "cover_url": "https://covers.openlibrary.org/b/id/8231856-L.jpg",
-    "source": "Self-Improvement Library"
+    "cover_url": "/covers/rm_a98c77aa15.jpg",
+    "source": "Self-Improvement Library",
+    "coverUrl": "/covers/rm_a98c77aa15.jpg"
   },
   {
     "id": "rm_1bff9dc4f2",
@@ -3419,9 +3458,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%205%20AM%20Club%20by%20Robin%20Sharma.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%205%20AM%20Club%20by%20Robin%20Sharma.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%205%20AM%20Club%20by%20Robin%20Sharma.epub",
-    "cover_url": "https://covers.openlibrary.org/b/id/10326643-L.jpg",
+    "cover_url": "/covers/rm_1bff9dc4f2.jpg",
     "source": "Self-Improvement Library",
-    "coverUrl": "https://covers.openlibrary.org/b/id/10326643-L.jpg"
+    "coverUrl": "/covers/rm_1bff9dc4f2.jpg"
   },
   {
     "id": "rm_646bfa802d",
@@ -3438,9 +3477,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%20Alchemist%20by%20Coelho%2C%20Paulo.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%20Alchemist%20by%20Coelho%2C%20Paulo.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%20Alchemist%20by%20Coelho%2C%20Paulo.epub",
-    "cover_url": "https://covers.openlibrary.org/b/id/7463992-L.jpg",
+    "cover_url": "/covers/rm_646bfa802d.jpg",
     "source": "Self-Improvement Library",
-    "coverUrl": "https://covers.openlibrary.org/b/id/7463992-L.jpg"
+    "coverUrl": "/covers/rm_646bfa802d.jpg"
   },
   {
     "id": "rm_cf5e29d932",
@@ -3457,8 +3496,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%20Art%20of%20Seduction%20by%20Robert%20Greene.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%20Art%20of%20Seduction%20by%20Robert%20Greene.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%20Art%20of%20Seduction%20by%20Robert%20Greene.epub",
-    "cover_url": "https://covers.openlibrary.org/b/id/8231858-L.jpg",
-    "source": "Self-Improvement Library"
+    "cover_url": "/covers/rm_cf5e29d932.jpg",
+    "source": "Self-Improvement Library",
+    "coverUrl": "/covers/rm_cf5e29d932.jpg"
   },
   {
     "id": "rm_634e585057",
@@ -3475,8 +3515,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%20Art%20of%20War%20Complete%20Texts%20and%20Commentaries%20by%20Sun%20Tzu%2C%20Thomas%20Cleary.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%20Art%20of%20War%20Complete%20Texts%20and%20Commentaries%20by%20Sun%20Tzu%2C%20Thomas%20Cleary.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%20Art%20of%20War%20Complete%20Texts%20and%20Commentaries%20by%20Sun%20Tzu%2C%20Thomas%20Cleary.epub",
-    "cover_url": "https://covers.openlibrary.org/b/id/4849549-L.jpg",
-    "source": "Self-Improvement Library"
+    "cover_url": "/covers/rm_634e585057.jpg",
+    "source": "Self-Improvement Library",
+    "coverUrl": "/covers/rm_634e585057.jpg"
   },
   {
     "id": "rm_797c58e144",
@@ -3493,9 +3534,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%20Atlas%20Six%20by%20Olivie%20Blake.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%20Atlas%20Six%20by%20Olivie%20Blake.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%20Atlas%20Six%20by%20Olivie%20Blake.epub",
-    "cover_url": "https://covers.openlibrary.org/b/id/10862205-L.jpg",
+    "cover_url": "/covers/rm_797c58e144.jpg",
     "source": "Self-Improvement Library",
-    "coverUrl": "https://covers.openlibrary.org/b/id/10862205-L.jpg"
+    "coverUrl": "/covers/rm_797c58e144.jpg"
   },
   {
     "id": "rm_bbdace8a11",
@@ -3512,9 +3553,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%20Big%20Disconnect%20by%20Catherine%20Steiner-Adair.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%20Big%20Disconnect%20by%20Catherine%20Steiner-Adair.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%20Big%20Disconnect%20by%20Catherine%20Steiner-Adair.epub",
-    "cover_url": "https://covers.openlibrary.org/b/id/7260809-L.jpg",
+    "cover_url": "/covers/rm_bbdace8a11.jpg",
     "source": "Self-Improvement Library",
-    "coverUrl": "https://covers.openlibrary.org/b/id/7260809-L.jpg"
+    "coverUrl": "/covers/rm_bbdace8a11.jpg"
   },
   {
     "id": "rm_69d92d1138",
@@ -3568,8 +3609,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%20Divine%20Comedy%20%28The%20Inferno%2C%20The%20Purgatorio%2C%20and%20The%20Paradiso%29%20by%20Dante%20Alighieri.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%20Divine%20Comedy%20%28The%20Inferno%2C%20The%20Purgatorio%2C%20and%20The%20Paradiso%29%20by%20Dante%20Alighieri.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%20Divine%20Comedy%20%28The%20Inferno%2C%20The%20Purgatorio%2C%20and%20The%20Paradiso%29%20by%20Dante%20Alighieri.epub",
-    "cover_url": "https://covers.openlibrary.org/b/title/The%20Divine%20Comedy%20%28The%20Inferno%2C%20The%20Purgatorio%2C%20and%20The%20Paradiso%29-L.jpg",
-    "source": "Self-Improvement Library"
+    "cover_url": "/covers/rm_b6e26386dc.jpg",
+    "source": "Self-Improvement Library",
+    "coverUrl": "/covers/rm_b6e26386dc.jpg"
   },
   {
     "id": "rm_6fe70b2530",
@@ -3586,9 +3628,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%20Essential%20Writings%20of%20Ralph%20Waldo%20Emerson.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%20Essential%20Writings%20of%20Ralph%20Waldo%20Emerson.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%20Essential%20Writings%20of%20Ralph%20Waldo%20Emerson.epub",
-    "cover_url": "https://covers.openlibrary.org/b/id/421981-L.jpg",
+    "cover_url": "/covers/rm_6fe70b2530.jpg",
     "source": "Self-Improvement Library",
-    "coverUrl": "https://covers.openlibrary.org/b/id/421981-L.jpg"
+    "coverUrl": "/covers/rm_6fe70b2530.jpg"
   },
   {
     "id": "rm_0b64bacb41",
@@ -3605,9 +3647,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%20Four%20Obsessions%20of%20an%20Extraordinary%20Executive%20by%20Patrick%20M.%20Lencioni.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%20Four%20Obsessions%20of%20an%20Extraordinary%20Executive%20by%20Patrick%20M.%20Lencioni.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%20Four%20Obsessions%20of%20an%20Extraordinary%20Executive%20by%20Patrick%20M.%20Lencioni.epub",
-    "cover_url": "https://covers.openlibrary.org/b/id/8500929-L.jpg",
+    "cover_url": "/covers/rm_0b64bacb41.jpg",
     "source": "Self-Improvement Library",
-    "coverUrl": "https://covers.openlibrary.org/b/id/8500929-L.jpg"
+    "coverUrl": "/covers/rm_0b64bacb41.jpg"
   },
   {
     "id": "rm_5cc99e020c",
@@ -3624,9 +3666,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%20Four%20Winds%20by%20Kristin%20Hannah.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%20Four%20Winds%20by%20Kristin%20Hannah.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%20Four%20Winds%20by%20Kristin%20Hannah.epub",
-    "cover_url": "https://covers.openlibrary.org/b/id/10675593-L.jpg",
+    "cover_url": "/covers/rm_5cc99e020c.jpg",
     "source": "Self-Improvement Library",
-    "coverUrl": "https://covers.openlibrary.org/b/id/10675593-L.jpg"
+    "coverUrl": "/covers/rm_5cc99e020c.jpg"
   },
   {
     "id": "rm_d3ad8c674d",
@@ -3661,9 +3703,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%20Jakarta%20Method%20by%20Vincent%20Bevins.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%20Jakarta%20Method%20by%20Vincent%20Bevins.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%20Jakarta%20Method%20by%20Vincent%20Bevins.epub",
-    "cover_url": "https://covers.openlibrary.org/b/id/13158267-L.jpg",
+    "cover_url": "/covers/rm_52c512ec1c.jpg",
     "source": "Self-Improvement Library",
-    "coverUrl": "https://covers.openlibrary.org/b/id/13158267-L.jpg"
+    "coverUrl": "/covers/rm_52c512ec1c.jpg"
   },
   {
     "id": "rm_d18df63e5d",
@@ -3698,9 +3740,9 @@
     "download_url": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%20Light%20We%20Lost%20by%20Jill%20Santopolo.epub",
     "webReaderLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%20Light%20We%20Lost%20by%20Jill%20Santopolo.epub",
     "previewLink": "https://raw.githubusercontent.com/rishabhmodi03/BOOKS/master/1.%20150/The%20Light%20We%20Lost%20by%20Jill%20Santopolo.epub",
-    "cover_url": "https://covers.openlibrary.org/b/id/9277783-L.jpg",
+    "cover_url": "/covers/rm_e9dec740f0.jpg",
     "source": "Self-Improvement Library",
-    "coverUrl": "https://covers.openlibrary.org/b/id/9277783-L.jpg"
+    "coverUrl": "/covers/rm_e9dec740f0.jpg"
   },
   {
     "id": "rm_7c75d68eb0",

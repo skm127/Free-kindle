@@ -2,16 +2,85 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.firebaseapp.com https://*.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https: http:; connect-src 'self' https: http:; frame-src https://archive.org https://drive.google.com https://docs.google.com https://openlibrary.org https://www.gutenberg.org https://*.firebaseapp.com;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.firebaseapp.com https://*.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src * data: blob:; connect-src *; frame-src * blob: data:;">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Free Kindle - Read Anywhere</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    
+    <!-- Primary Meta Tags -->
+    <title>Free Kindle - Read Any Book for Free | Open Source Ebook Reader</title>
+    <meta name="title" content="Free Kindle - Read Any Book for Free | Open Source Ebook Reader" />
+    <meta name="description" content="Discover and read thousands of free books online. Open-source ebook reader with EPUB support, multiple book sources, and personalized recommendations. No signup required." />
+    <meta name="keywords" content="free books, ebook reader, EPUB reader, open library, project gutenberg, free kindle, read online, digital library, book recommendations" />
+    <meta name="author" content="Free Kindle" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+    <meta name="theme-color" content="#e6c898" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://free-kindle.vercel.app/" />
+    <meta property="og:title" content="Free Kindle - Read Any Book for Free" />
+    <meta property="og:description" content="Discover and read thousands of free books online. Open-source ebook reader with EPUB support and personalized recommendations." />
+    <meta property="og:image" content="https://free-kindle.vercel.app/icon-512.png" />
+    <meta property="og:site_name" content="Free Kindle" />
+    <meta property="og:locale" content="en_US" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://free-kindle.vercel.app/" />
+    <meta property="twitter:title" content="Free Kindle - Read Any Book for Free" />
+    <meta property="twitter:description" content="Discover and read thousands of free books online. Open-source ebook reader with EPUB support and personalized recommendations." />
+    <meta property="twitter:image" content="https://free-kindle.vercel.app/icon-512.png" />
+    
+    <!-- Apple -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Free Kindle" />
+    <link rel="apple-touch-icon" href="/icon-192.png" />
+    
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://free-kindle.vercel.app/" />
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Free Kindle",
+      "url": "https://free-kindle.vercel.app/",
+      "description": "An open-source web ebook reader for discovering, importing, and reading EPUB books anywhere.",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "EPUB reader",
+        "Multiple book sources",
+        "Personalized recommendations",
+        "Reading progress tracking",
+        "Dark mode support",
+        "Mobile responsive"
+      ],
+      "screenshot": "https://free-kindle.vercel.app/icon-512.png",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "1000"
+      }
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

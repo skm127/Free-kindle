@@ -52,12 +52,11 @@ const ScrollRow = ({ books, onBookSelect }) => (
   <div style={{
     display: 'flex', gap: '16px', overflowX: 'auto', paddingBottom: '8px',
     scrollSnapType: 'x mandatory', scrollbarWidth: 'none', msOverflowStyle: 'none',
-  }}>
+  }} className="stagger-children">
     {books.map(book => (
       <div key={book.id} onClick={() => onBookSelect(book)}
-        style={{ width: '140px', minWidth: '140px', flexShrink: 0, cursor: 'pointer', scrollSnapAlign: 'start', transition: 'transform 0.2s ease' }}
-        onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-4px)'}
-        onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
+        style={{ width: '140px', minWidth: '140px', flexShrink: 0, cursor: 'pointer', scrollSnapAlign: 'start' }}
+        className="hover-lift"
       >
         <div style={{ width: '140px', height: '200px', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 4px 12px rgba(0,0,0,0.3)' }}>
           <BookCover title={book.title} author={book.authors?.[0] || book.author} coverUrl={book.coverUrl || book.cover} />
@@ -143,7 +142,7 @@ const HomeView = ({ books, recommendations, isLoading, errorMsg, onBookSelect, o
         borderRadius: '16px', padding: '2rem', marginBottom: '2.5rem',
         display: 'flex', gap: '2rem', alignItems: 'center', flexWrap: 'wrap',
         border: '1px solid var(--border)', position: 'relative', overflow: 'hidden'
-      }}>
+      }} className="animate-scale">
         <div style={{ position: 'absolute', top: '-50px', right: '-50px', width: '200px', height: '200px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(230,200,152,0.08), transparent)', pointerEvents: 'none' }} />
         <div style={{ flex: '1 1 300px', minWidth: '250px', zIndex: 1 }}>
           <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '10px' }}>
@@ -169,18 +168,20 @@ const HomeView = ({ books, recommendations, isLoading, errorMsg, onBookSelect, o
           <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
             {(featured.webReaderLink || featured.download_url) && (
               <button onClick={() => { onBookSelect(featured); if (onReadBook) onReadBook(featured); }}
-                style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '10px 24px', background: 'var(--accent-gold)', color: '#121418', border: 'none', borderRadius: '8px', fontWeight: 700, fontSize: '0.9rem', cursor: 'pointer', transition: 'opacity 0.2s' }}>
+                className="btn-animate"
+                style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '10px 24px', background: 'var(--accent-gold)', color: '#121418', border: 'none', borderRadius: '8px', fontWeight: 700, fontSize: '0.9rem', cursor: 'pointer' }}>
                 <Play size={16} fill="#121418" /> Read Now
               </button>
             )}
             <button onClick={() => onBookSelect(featured)}
+              className="hover-glow"
               style={{ padding: '10px 24px', background: 'rgba(230,200,152,0.1)', color: 'var(--accent-gold)', border: '1px solid rgba(230,200,152,0.25)', borderRadius: '8px', fontWeight: 600, fontSize: '0.9rem', cursor: 'pointer' }}>
               Details
             </button>
           </div>
         </div>
-        <div onClick={() => onBookSelect(featured)} style={{ flex: '0 0 auto', cursor: 'pointer' }}>
-          <div style={{ width: '180px', height: '260px', borderRadius: '12px', overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,0.5), 0 0 60px rgba(230,200,152,0.1)', transition: 'transform 0.3s ease' }}>
+        <div onClick={() => onBookSelect(featured)} style={{ flex: '0 0 auto', cursor: 'pointer' }} className="hover-lift">
+          <div style={{ width: '180px', height: '260px', borderRadius: '12px', overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,0.5), 0 0 60px rgba(230,200,152,0.1)' }}>
             <BookCover title={featured.title} author={featured.authors?.[0] || featured.author} coverUrl={featured.coverUrl || featured.cover} />
           </div>
         </div>

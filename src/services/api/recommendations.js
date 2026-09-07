@@ -111,6 +111,20 @@ export const getBooksByCategory = async (category) => {
 export const getRecommendations = async (readlist) => {
   if (!readlist || readlist.length === 0) return [];
   try {
+    // Use the advanced recommendation service
+    const { recommendationService } = await import('./recommendations.ts');
+    const allBooks = await getPopularBooks();
+    
+    // Set popular books for the recommendation service
+    recommendationService.setPopularBooks(allBooks);
+    
+    // Get hybrid recommendations
+    const recommendations = await recommendationService.getRecommendations(readlist, allBooks);
+    
+    return recommendations.length > 0 ? recommendations : await getPopularBooks();
+  } catch (error) {
+    console.error('Error fetching recommendations:', error);
+    // Fallback to original logic
     const allCategories = readlist.flatMap(book => book.categories || []);
     const categoryCounts = allCategories.reduce((acc, cat) => {
       acc[cat] = (acc[cat] || 0) + 1;
@@ -124,8 +138,5 @@ export const getRecommendations = async (readlist) => {
     }
     
     return await getPopularBooks();
-  } catch (error) {
-    console.error('Error fetching recommendations:', error);
-    return [];
   }
 };

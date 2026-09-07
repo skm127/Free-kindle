@@ -369,6 +369,259 @@ button {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Enhanced Animations */
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+  60% { transform: translateY(-5px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 5px rgba(230, 200, 152, 0.3); }
+  50% { box-shadow: 0 0 20px rgba(230, 200, 152, 0.6); }
+}
+
+.animate-slide-right {
+  animation: slideInRight 0.5s ease-out forwards;
+}
+
+.animate-slide-left {
+  animation: slideInLeft 0.5s ease-out forwards;
+}
+
+.animate-scale {
+  animation: scaleIn 0.3s ease-out forwards;
+}
+
+.animate-bounce {
+  animation: bounce 2s infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Staggered animations for lists */
+.stagger-children > * {
+  animation: fadeIn 0.4s ease-out forwards;
+  opacity: 0;
+}
+
+.stagger-children > *:nth-child(1) { animation-delay: 0.05s; }
+.stagger-children > *:nth-child(2) { animation-delay: 0.1s; }
+.stagger-children > *:nth-child(3) { animation-delay: 0.15s; }
+.stagger-children > *:nth-child(4) { animation-delay: 0.2s; }
+.stagger-children > *:nth-child(5) { animation-delay: 0.25s; }
+.stagger-children > *:nth-child(6) { animation-delay: 0.3s; }
+.stagger-children > *:nth-child(7) { animation-delay: 0.35s; }
+.stagger-children > *:nth-child(8) { animation-delay: 0.4s; }
+
+/* Smooth transitions */
+.smooth-transition {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.smooth-transition-fast {
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover effects */
+.hover-lift {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.hover-glow {
+  transition: box-shadow 0.3s ease;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 15px rgba(230, 200, 152, 0.4);
+}
+
+/* Button animations */
+.btn-animate {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-animate::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn-animate:active::after {
+  width: 200px;
+  height: 200px;
+}
+
+/* Loading skeleton animation */
+.skeleton {
+  background: linear-gradient(90deg, 
+    var(--bg-card) 25%, 
+    rgba(255, 255, 255, 0.05) 50%, 
+    var(--bg-card) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Progress bar animation */
+.progress-bar {
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Modal animations */
+.modal-enter {
+  animation: scaleIn 0.3s ease-out forwards;
+}
+
+.modal-exit {
+  animation: scaleIn 0.2s ease-out reverse forwards;
+}
+
+/* Card flip animation */
+.card-flip {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+}
+
+.card-flip.flipped {
+  transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+/* Notification animation */
+.notification-enter {
+  animation: slideInRight 0.3s ease-out forwards;
+}
+
+.notification-exit {
+  animation: slideInRight 0.3s ease-out reverse forwards;
+}
+
+/* Ripple effect */
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: ripple 0.6s linear;
+}
+
+@keyframes ripple {
+  to {
+    width: 200px;
+    height: 200px;
+    opacity: 0;
+  }
+}
+
+/* Text gradient animation */
+.text-gradient-animate {
+  background: linear-gradient(90deg, var(--accent-gold), #fff, var(--accent-gold));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textGradient 3s linear infinite;
+}
+
+@keyframes textGradient {
+  to { background-position: 200% center; }
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Rotate animation */
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-rotate {
+  animation: rotate 2s linear infinite;
+}
+
+/* Pulse animation for loading */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
 /* Modal Styles */
 .modal-overlay {
   position: fixed;
@@ -894,4 +1147,218 @@ button {
   .login-illustration-title { font-size: 1.4rem; }
   .login-form-panel { padding: 1.5rem 1rem; }
   .login-heading { font-size: 1.5rem; }
+}
+
+/* Responsive Design Improvements */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 60px;
+  }
+  
+  .view-container {
+    padding: 2rem 1.5rem;
+  }
+  
+  .hero-section {
+    flex-direction: column;
+    gap: 2rem;
+    min-height: auto;
+  }
+  
+  .hero-cover-container {
+    width: 250px;
+  }
+  
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .book-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 2rem 1.5rem;
+  }
+  
+  .category-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+  
+  .modal-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 2rem;
+  }
+  
+  .modal-cover {
+    width: 180px;
+    margin: 0 auto;
+  }
+  
+  .search-input-large {
+    font-size: 1rem;
+    padding: 1rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    width: 50px;
+  }
+  
+  .view-container {
+    padding: 1.5rem 1rem;
+  }
+  
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .btn-primary, .btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .book-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1.5rem 1rem;
+  }
+  
+  .mini-book-card {
+    width: 120px;
+  }
+  
+  .mini-cover {
+    width: 120px;
+  }
+  
+  .category-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .modal-content {
+    padding: 1.5rem;
+  }
+  
+  .modal-title {
+    font-size: 1.75rem;
+  }
+  
+  .reader-header {
+    padding: 0 1rem;
+  }
+  
+  .reader-title {
+    font-size: 0.8rem;
+    max-width: 40%;
+  }
+}
+
+/* Accessibility Improvements */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Focus visible for keyboard navigation */
+*:focus-visible {
+  outline: 2px solid var(--accent-gold);
+  outline-offset: 2px;
+}
+
+/* Reduced motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --bg-dark: #000000;
+    --bg-panel: #1a1a1a;
+    --text-primary: #ffffff;
+    --text-secondary: #e0e0e0;
+    --accent-gold: #ffff00;
+  }
+}
+
+/* Dark mode improvements */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-dark: #121418;
+    --bg-panel: #1a1e24;
+    --text-primary: #e2e8f0;
+    --text-secondary: #94a3b8;
+  }
+}
+
+/* Light mode support */
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-dark: #f5f5f5;
+    --bg-panel: #ffffff;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --accent-gold: #8b7355;
+  }
+}
+
+/* Touch-friendly sizing for mobile */
+@media (hover: none) and (pointer: coarse) {
+  button, .nav-item, .mini-book-card, .category-card {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .reader-header button {
+    padding: 12px;
+  }
+}
+
+/* Improved scroll handling */
+@media (max-width: 768px) {
+  .book-scroll-container {
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .mini-book-card {
+    scroll-snap-align: start;
+  }
+}
+
+/* Landscape mobile optimizations */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero-section {
+    flex-direction: row;
+    min-height: 200px;
+  }
+  
+  .hero-cover-container {
+    width: 150px;
+  }
+  
+  .hero-title {
+    font-size: 1.5rem;
+  }
+  
+  .sidebar {
+    height: 100vh;
+  }
 }
